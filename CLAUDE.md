@@ -4,16 +4,16 @@ Docusaurus 3.5 documentation site for the PatchOne platform.
 
 ## Live Site
 
-**https://docs.patch-one.com**
+**https://patch-one.com/docs**
 
 Hosted on GitHub Pages (`dchicale/patch-one-docs`). Deployed automatically via GitHub Actions on every push to `main`.
 
 ## Tech Stack
 
 - **Framework**: Docusaurus 3.5 (React 18, Node 20)
-- **Hosting**: GitHub Pages with custom domain `docs.patch-one.com`
+- **Hosting**: GitHub Pages with custom domain `patch-one.com`
 - **CI/CD**: GitHub Actions → `.github/workflows/deploy.yml`
-- **DNS**: Cloudflare (CNAME `docs` → `dchicale.github.io`, grey cloud / DNS only)
+- **DNS**: Cloudflare (CNAME `@` → `dchicale.github.io`, grey cloud / DNS only)
 
 ## Commands
 
@@ -77,9 +77,9 @@ To redeploy without a content change, trigger the workflow manually from the Act
 
 | Record | Type | Name | Target | Proxy |
 |--------|------|------|--------|-------|
-| Docs subdomain | CNAME | `docs` | `dchicale.github.io` | DNS only (grey) |
+| Docs subdomain | CNAME | `@` | `dchicale.github.io` | DNS only (grey) |
 
-The `static/CNAME` file contains `docs.patch-one.com`. It must stay in sync with the GitHub Pages custom domain setting and the `url` field in `docusaurus.config.js`. Do not delete it — GitHub Pages loses the custom domain on every deploy without it.
+The `static/CNAME` file contains `patch-one.com`. It must stay in sync with the GitHub Pages custom domain setting and the `url` field in `docusaurus.config.js`. Do not delete it — GitHub Pages loses the custom domain on every deploy without it.
 
 <!-- MANUAL ADDITIONS START -->
 <!-- MANUAL ADDITIONS END -->
