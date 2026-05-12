@@ -1,0 +1,19 @@
+services:
+  docs-dev:
+    build:
+      context: .
+      target: dev
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - "3000:3000"
+    profiles: [dev]
+
+  docs-prod:
+    build:
+      context: .
+      target: prod
+    ports:
+      - "80:80"
+    profiles: [prod]

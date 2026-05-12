@@ -7,8 +7,8 @@ const config = {
   tagline: 'Windows software update management for Brazilian SMEs',
   favicon: 'img/favicon.svg',
 
-  url: 'https://docs.patchone.io',
-  baseUrl: '/',
+  url: 'https://dchicale.github.io',
+  baseUrl: '/patch-one-docs/',
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
