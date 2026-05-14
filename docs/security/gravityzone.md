@@ -22,9 +22,7 @@ EV certificates are available from DigiCert, Sectigo, and other certificate auth
 
 ## Solution 2 — Windows Defender exclusions
 
-Run as Administrator on each machine, or deploy via GPO:
-
-```powershell
+```powershell title="Add exclusions (run as Administrator)"
 # Exclude the install directory
 Add-MpPreference -ExclusionPath "C:\Program Files\PatchOne\"
 
@@ -46,13 +44,26 @@ To deploy via GPO:
 
 ## Automated exclusion script
 
-The repository includes a PowerShell script that configures Windows Defender exclusions and provides guidance for GravityZone:
-
-```bat
+```bat title="Run as Administrator — or deploy via GPO"
 deploy\register_av_exclusion.ps1
 ```
 
-Run as Administrator on each machine before deploying the agent, or distribute via GPO.
+## Exclusion decision flow
+
+```mermaid
+flowchart TD
+    start([Deploy agent]) --> signed{EV code-signed?}
+    signed -->|Yes| ok([No exclusions needed])
+    signed -->|No| gzone{Using GravityZone?}
+    gzone -->|Yes| gz[Add exclusion\nin Control Center]
+    gzone -->|No| wd[Add Windows Defender\nexclusion via PowerShell or GPO]
+    gz --> done([Agent runs cleanly])
+    wd --> done
+
+    style ok fill:#1C2230,stroke:#7DBE9A,color:#7DBE9A
+    style done fill:#1C2230,stroke:#7DBE9A,color:#7DBE9A
+    style start fill:#161A22,stroke:#3F4B62,color:#ECE9E2
+```
 
 ## Application Control considerations
 

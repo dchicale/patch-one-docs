@@ -15,15 +15,13 @@ The on-premises mode runs on a single Windows Server on your local network. No i
 - Git
 - Administrator privileges on the server
 
-Verify Python is available:
-
-```bat
+```bat title="Verify Python is available"
 python --version
 ```
 
 ## Step 1 — Clone and configure
 
-```bat
+```bat title="Clone the repository"
 git clone <repo> C:\PatchOne
 cd C:\PatchOne
 copy server\.env.example server\.env
@@ -31,9 +29,16 @@ copy server\.env.example server\.env
 
 Edit `server\.env` and set the following values:
 
+```ini title="server/.env" {1,2,3,4}
+SECRET_KEY=<generate: python -c "import secrets; print(secrets.token_hex(32))">
+ADMIN_USERNAME=admin
+ADMIN_PASSWORD=<strong-password>
+SERVER_MODE=onprem
+```
+
 | Setting | Description |
 |---|---|
-| `SECRET_KEY` | A long random string used to secure admin sessions. Generate one with `python -c "import secrets; print(secrets.token_hex(32))"` |
+| `SECRET_KEY` | Long random string that secures admin sessions |
 | `ADMIN_USERNAME` | Username for the initial admin account |
 | `ADMIN_PASSWORD` | Strong password for the initial admin account |
 | `SERVER_MODE` | Set to `onprem` |
@@ -44,7 +49,7 @@ Use a strong, randomly generated value for `SECRET_KEY`. Never share it or commi
 
 ## Step 2 — Run the installer
 
-```bat
+```bat title="Run as Administrator"
 deploy\install_server.bat
 ```
 
@@ -69,7 +74,7 @@ Server logs are written to `server\logs\patchone.log`. The file rotates daily an
 
 ## Upgrading
 
-```bat
+```bat title="Upgrade to latest version"
 git pull
 pip install -r server\requirements.txt
 sc stop PatchOneServer && sc start PatchOneServer

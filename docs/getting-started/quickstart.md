@@ -12,12 +12,11 @@ Get PatchOne running in under 5 minutes using the on-premises mode (SQLite, sing
 
 - Windows Server 2019+ (or Windows 10/11 for dev/test)
 - Python 3.11+ installed
-- Port 8000 open in Windows Firewall (the installer handles this)
 - At least one Windows machine for the agent
 
 ## 1. Clone and configure
 
-```bat
+```bat title="Clone the repository"
 git clone <repo> patchone
 cd patchone
 copy server\.env.example server\.env
@@ -25,40 +24,43 @@ copy server\.env.example server\.env
 
 Open `server\.env` and set at minimum:
 
-```ini
+```ini title="server/.env" {1,2,3}
 SECRET_KEY=change-this-to-a-random-string-at-least-32-chars
 ADMIN_PASSWORD=your-admin-password
 SERVER_MODE=onprem
 ```
 
+:::warning SECRET_KEY
+Generate a strong key with `python -c "import secrets; print(secrets.token_hex(32))"`. Never reuse or commit this value.
+:::
+
 ## 2. Run the installer
 
-```bat
+```bat title="Run as Administrator"
 deploy\install_server.bat
 ```
 
 This single script:
 1. Creates a Python virtual environment
 2. Installs all server dependencies
-3. Runs Alembic migrations (creates the SQLite database)
-4. Seeds the 50-title software catalog
-5. Creates the initial admin account
-6. Registers PatchOne as a Windows Service on port 8000
-7. Opens Windows Firewall port 8000
+3. Initialises the database and seeds the 50-title software catalog
+4. Creates the initial admin account
+5. Registers PatchOne as a Windows Service
+6. Configures the firewall
 
 ## 3. Open the dashboard
 
-Navigate to `http://<server-ip>:8000` and log in with your admin credentials.
+Navigate to `http://<server-ip>` and log in with your admin credentials.
 
 ## 4. Deploy the first agent
 
-Create `config.ini` from the template:
+Create `config.ini` from the template and fill in your server URL and API key:
 
-```ini
+```ini title="config.ini" {2,3}
 [server]
-SERVER_URL=http://<server-ip>:8000
-TENANT_ID=default
+SERVER_URL=https://your-patchone-server
 API_KEY=<your-api-key>
+TENANT_ID=default
 HEARTBEAT_INTERVAL=300
 
 [agent]
@@ -67,11 +69,11 @@ LOG_LEVEL=INFO
 
 Copy `PatchPilotAgent.exe` and `config.ini` to a test machine and run:
 
-```bat
+```bat title="Install the agent (run as Administrator)"
 PatchPilotAgent.exe install
 ```
 
-Within 5 minutes the machine appears in the **Machines** page.
+The machine appears in the **Machines** page after the next check-in.
 
 ## 5. Push your first update
 
@@ -84,9 +86,8 @@ The job runs silently on the agent. Check **Jobs** for the result.
 
 ## Verification checklist
 
-- [ ] `GET http://<server>:8000/health` returns `{"status":"ok","db":"ok"}`
 - [ ] Dashboard loads and login works
-- [ ] Test machine appears in Fleet view within 5 minutes
+- [ ] Test machine appears in **Fleet** view
 - [ ] Software inventory visible on machine detail page
 - [ ] Deploy job completes successfully
 

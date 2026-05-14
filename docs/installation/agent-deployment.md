@@ -12,7 +12,7 @@ sidebar_position: 3
 
 Ensure AV exclusions are registered if using Bitdefender GravityZone or Windows Defender:
 
-```bat
+```powershell title="Register AV exclusions (run as Administrator)"
 deploy\register_av_exclusion.ps1
 ```
 
@@ -20,13 +20,13 @@ See [GravityZone coexistence](/docs/security/gravityzone) for details.
 
 ## config.ini
 
-All deployment methods share the same `config.ini`:
+All deployment methods share the same `config.ini`. Replace the highlighted values:
 
-```ini
+```ini title="config.ini" {2,3}
 [server]
 SERVER_URL=https://your-patchone-server
-TENANT_ID=default
 API_KEY=<your-api-key>
+TENANT_ID=default
 HEARTBEAT_INTERVAL=300
 
 [agent]
@@ -36,10 +36,29 @@ LOG_LEVEL=INFO
 | Setting | Description | Default |
 |---|---|---|
 | `SERVER_URL` | Base URL of the PatchOne server | required |
-| `TENANT_ID` | Tenant identifier (use `default` for on-prem) | `default` |
+| `TENANT_ID` | Tenant identifier (`default` for on-prem) | `default` |
 | `API_KEY` | Shared secret for agent authentication | required |
-| `HEARTBEAT_INTERVAL` | Seconds between polls | `300` |
+| `HEARTBEAT_INTERVAL` | Seconds between check-ins | `300` |
 | `LOG_LEVEL` | `DEBUG`, `INFO`, `WARNING`, `ERROR` | `INFO` |
+
+## Deployment flow
+
+```mermaid
+flowchart LR
+    share["📂 Network Share\nPatchPilotAgent.exe\nconfig.ini"]
+    gpo["🗂️ GPO / WinRM\n/ PsExec"]
+    machine["💻 Windows Machine"]
+    server["⚙️ PatchOne Server"]
+
+    share --> gpo --> machine
+    machine -->|"first check-in"| server
+    server -->|"appears in Fleet"| server
+
+    style server fill:#161A22,stroke:#3F4B62,color:#ECE9E2
+    style machine fill:#1C2230,stroke:#2A323F,color:#98A0AC
+    style gpo fill:#1C2230,stroke:#2A323F,color:#9FB3D2
+    style share fill:#1C2230,stroke:#2A323F,color:#98A0AC
+```
 
 ## Method 1 — GPO Startup Script (recommended)
 
@@ -72,19 +91,17 @@ Machines install the agent on next restart / GP refresh and appear in the dashbo
 
 ### Verify
 
-On a target machine:
-
-```bat
+```bat title="Check service status on a target machine"
 sc query PatchOneAgent
 ```
 
-Expected: `STATE: 4 RUNNING`
+Expected output includes `STATE: 4 RUNNING`.
 
 ## Method 2 — WinRM / PowerShell remoting
 
 Use when you have WinRM access but no domain GPO.
 
-```powershell
+```powershell title="Bulk deploy via WinRM" showLineNumbers
 $hosts = Get-Content hosts.txt
 foreach ($h in $hosts) {
     $session = New-PSSession -ComputerName $h
@@ -102,18 +119,16 @@ foreach ($h in $hosts) {
 
 ## Method 3 — Mass deploy script (PsExec)
 
-The `deploy_agents.py` script wraps PsExec for bulk deployment. Supports a list of hosts or a CIDR range.
+The `deploy_agents.py` script wraps PsExec for bulk deployment.
 
-```bat
+```bat title="Deploy by host list"
 python deploy\deploy_agents.py ^
   --hosts hosts.txt ^
   --server-url https://your-patchone-server ^
   --api-key <key>
 ```
 
-Or by CIDR:
-
-```bat
+```bat title="Deploy by CIDR range"
 python deploy\deploy_agents.py ^
   --cidr 192.168.1.0/24 ^
   --server-url https://your-patchone-server ^
@@ -128,12 +143,10 @@ The agent binary may trigger AV false positives when deployed via PsExec. Regist
 
 For a single machine or testing:
 
-```bat
-REM Copy files to target machine
+```bat title="Manual install (run as Administrator)"
 xcopy /Y PatchPilotAgent.exe "C:\Program Files\PatchOne\"
 xcopy /Y config.ini          "C:\Program Files\PatchOne\"
 
-REM Install and start the Windows Service
 "C:\Program Files\PatchOne\PatchPilotAgent.exe" install
 sc start PatchOneAgent
 ```
@@ -150,14 +163,8 @@ sc start PatchOneAgent
 
 ## Agent log file
 
-Logs are written to:
-
-```
-C:\Program Files\PatchOne\agent.log
-```
-
-Log level is controlled by `LOG_LEVEL` in `config.ini`.
+Logs are written to `C:\Program Files\PatchOne\agent.log`. Log level is controlled by `LOG_LEVEL` in `config.ini`.
 
 ## Agent self-update
 
-When the server advertises a new agent version, the agent downloads the new binary and replaces itself automatically. See [Agent Self-Update](/docs/agent/self-update) for the full process.
+When the server publishes a new agent version, the agent updates itself automatically. See [Agent Self-Update](/docs/agent/self-update) for details.
