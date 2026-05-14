@@ -1,67 +1,67 @@
 ---
 id: jobs
-title: Job Monitoring
+title: Monitoramento de Jobs
 sidebar_position: 4
 ---
 
-# Job Monitoring
+# Monitoramento de Jobs
 
-The **Jobs** page shows all deploy jobs and their current status.
+A página **Jobs** exibe todos os jobs de implantação e seus status atuais.
 
-## Job lifecycle
+## Ciclo de vida do job
 
 ```
 queued → in_progress → completed
                     → failed
 ```
 
-| State | Meaning |
+| Estado | Significado |
 |---|---|
-| `queued` | Job created, waiting for the agent to pick it up on the next heartbeat |
-| `in_progress` | Agent has started the winget install |
-| `completed` | winget exited with code 0; software installed successfully |
-| `failed` | winget exited with a non-zero code; see result message |
+| `queued` | Job criado, aguardando o agente buscar no próximo heartbeat |
+| `in_progress` | O agente iniciou a instalação via winget |
+| `completed` | winget encerrou com código 0; software instalado com sucesso |
+| `failed` | winget encerrou com código diferente de zero; veja a mensagem de resultado |
 
-## Job list
+## Lista de jobs
 
-Each row shows:
+Cada linha exibe:
 
-| Column | Description |
+| Coluna | Descrição |
 |---|---|
-| **Machine** | Hostname of the target machine |
-| **Software** | Display name from the catalog |
-| **Status** | Current job state with colour badge |
-| **Result** | winget output summary (populated on completion or failure) |
-| **Created** | Timestamp when the job was queued |
-| **Updated** | Timestamp of the most recent state change |
+| **Máquina** | Hostname da máquina alvo |
+| **Software** | Nome de exibição do catálogo |
+| **Status** | Estado atual do job com badge colorido |
+| **Resultado** | Resumo da saída do winget (preenchido ao concluir ou falhar) |
+| **Criado** | Timestamp quando o job foi enfileirado |
+| **Atualizado** | Timestamp da mudança de estado mais recente |
 
-## Batch grouping
+## Agrupamento por lote
 
-Jobs deployed in the same operation share a `batch_id`. Batch rows are grouped in the list with a collapsible header showing overall progress (e.g., *8 / 10 completed*).
+Jobs implantados na mesma operação compartilham um `batch_id`. As linhas de lote são agrupadas na lista com um cabeçalho expansível mostrando o progresso geral (ex.: *8 / 10 concluídos*).
 
-## Filters
+## Filtros
 
-Filter by:
-- **Status** — show only `queued`, `in_progress`, `completed`, or `failed` jobs
-- **Machine** — filter to a specific machine
+Filtrar por:
+- **Status** — exibir apenas jobs `queued`, `in_progress`, `completed` ou `failed`
+- **Máquina** — filtrar para uma máquina específica
 
-## Cancel a queued job
+## Cancelar um job enfileirado
 
-You can cancel a job that is still in `queued` state by clicking the cancel icon. Jobs already in `in_progress` cannot be cancelled — they complete on the agent side.
+Você pode cancelar um job que ainda está no estado `queued` clicando no ícone de cancelamento. Jobs já em `in_progress` não podem ser cancelados — eles são concluídos no lado do agente.
 
-## Failed jobs
+## Jobs com falha
 
-When a job fails, the result message contains the winget exit code and stderr output. Common failure reasons:
+Quando um job falha, a mensagem de resultado contém o código de saída do winget e a saída stderr. Motivos comuns de falha:
 
-| Cause | Typical result message |
+| Causa | Mensagem de resultado típica |
 |---|---|
-| winget package not found | `No applicable upgrade found` |
-| Network unavailable on client | `Failed to connect to the source` |
-| Installer blocked by AV | `The process was terminated` |
-| Already up to date | `No applicable upgrade found` |
+| Pacote winget não encontrado | `No applicable upgrade found` |
+| Rede indisponível no cliente | `Failed to connect to the source` |
+| Instalador bloqueado pelo AV | `The process was terminated` |
+| Já está atualizado | `No applicable upgrade found` |
 
-For AV-related failures, see [GravityZone coexistence](/docs/security/gravityzone).
+Para falhas relacionadas ao AV, consulte [Coexistência com GravityZone](/docs/security/gravityzone).
 
-## Auto-refresh
+## Atualização automática
 
-The Jobs page polls for updates every 10 seconds while open, so you can watch progress in real time without manually refreshing.
+A página Jobs atualiza automaticamente a cada 10 segundos enquanto estiver aberta, para que você possa acompanhar o progresso em tempo real sem atualizar manualmente.

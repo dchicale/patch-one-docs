@@ -1,18 +1,18 @@
 ---
 id: authentication
-title: Authentication
+title: Autenticação
 sidebar_position: 2
 ---
 
-# Authentication
+# Autenticação
 
-PatchOne uses cookie-based session authentication for the admin API. After logging in, the session cookie is automatically included in subsequent requests by the browser or your HTTP client.
+O PatchOne utiliza autenticação de sessão baseada em cookie para a API de administração. Após o login, o cookie de sessão é incluído automaticamente nas requisições subsequentes pelo navegador ou pelo seu cliente HTTP.
 
 ## Login
 
 **`POST /api/admin/login`**
 
-**Request body:**
+**Corpo da requisição:**
 
 ```json
 {
@@ -21,7 +21,7 @@ PatchOne uses cookie-based session authentication for the admin API. After loggi
 }
 ```
 
-**Success (200):** Sets a session cookie and returns your admin profile:
+**Sucesso (200):** Define um cookie de sessão e retorna seu perfil de administrador:
 
 ```json
 {
@@ -31,12 +31,12 @@ PatchOne uses cookie-based session authentication for the admin API. After loggi
 }
 ```
 
-**Error responses:**
+**Respostas de erro:**
 
-| Code | Cause |
+| Código | Causa |
 |---|---|
-| 401 | Invalid credentials |
-| 429 | Too many failed attempts — wait before retrying |
+| 401 | Credenciais inválidas |
+| 429 | Muitas tentativas falhas — aguarde antes de tentar novamente |
 
 ---
 
@@ -44,23 +44,23 @@ PatchOne uses cookie-based session authentication for the admin API. After loggi
 
 **`POST /api/admin/logout`**
 
-Clears the session cookie. The logout event is written to the audit log.
+Limpa o cookie de sessão. O evento de logout é gravado no log de auditoria.
 
 ---
 
-## Current session
+## Sessão atual
 
 **`GET /api/admin/me`**
 
-Returns your admin profile for the current session. Returns 401 if the session has expired.
+Retorna o perfil de administrador da sessão atual. Retorna 401 se a sessão tiver expirado.
 
-## Session expiry
+## Expiração de sessão
 
-Sessions expire after a period of inactivity. After expiry, protected API calls return 401 and the browser redirects to the login page.
+As sessões expiram após um período de inatividade. Após a expiração, as chamadas à API protegida retornam 401 e o navegador redireciona para a página de login.
 
-## Using the API from scripts
+## Usando a API a partir de scripts
 
-Use an HTTP client that supports cookies. Log in once to obtain the session cookie, then include it in subsequent requests:
+Use um cliente HTTP que suporte cookies. Faça login uma vez para obter o cookie de sessão e, em seguida, inclua-o nas requisições subsequentes:
 
 ```python
 import requests

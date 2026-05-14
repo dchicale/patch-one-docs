@@ -1,10 +1,8 @@
-import clsx from 'clsx';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import styles from './index.module.css';
 
-/* ---- SVG capability icons ---- */
 function CapIcon({ kind }) {
   const s = {
     width: 20, height: 20,
@@ -35,15 +33,15 @@ function CapIcon({ kind }) {
 }
 
 const CAPABILITIES = [
-  { icon: 'discover', title: 'Auto-discovery',    body: 'Agents self-register on first check-in. No CSV imports, no roster to maintain.' },
-  { icon: 'inventory', title: 'Live inventory',   body: 'Installed software per machine, refreshed on every check-in.' },
-  { icon: 'detect', title: 'Update detection',    body: 'Pending updates surfaced as dashboard badges, deduplicated across the fleet.' },
-  { icon: 'deploy', title: 'One-click deploy',    body: 'Push any catalog title to one machine, a group, or the whole fleet.' },
-  { icon: 'silent', title: 'Silent install',      body: 'Updates install in the background. Zero end-user interruption, zero prompts.' },
-  { icon: 'audit', title: 'Tamper-proof audit',   body: 'Every deploy, login, and config change logged to an immutable, append-only record.' },
-  { icon: 'offline', title: 'Offline alerting',   body: 'Dashboard notification when a machine stops checking in past the timeout.' },
-  { icon: 'briefing', title: 'Daily briefing',    body: 'Fleet-health snapshot delivered to the notification panel each morning.' },
-  { icon: 'tenant', title: 'Multi-tenant',        body: 'Cloud mode scopes every request to your org. Cross-tenant access is structurally blocked.' },
+  { icon: 'discover', title: 'Autodescoberta',       body: 'Agentes se registram automaticamente no primeiro check-in. Sem importações CSV, sem lista manual.' },
+  { icon: 'inventory', title: 'Inventário em tempo real', body: 'Software instalado por máquina, atualizado a cada check-in.' },
+  { icon: 'detect',   title: 'Detecção de atualizações', body: 'Atualizações pendentes exibidas como badges no dashboard, deduplicadas na frota.' },
+  { icon: 'deploy',   title: 'Implantação com um clique', body: 'Envie qualquer título do catálogo para uma máquina, um grupo ou toda a frota.' },
+  { icon: 'silent',   title: 'Instalação silenciosa', body: 'Atualizações em segundo plano. Zero interrupção ao usuário final, zero prompts.' },
+  { icon: 'audit',    title: 'Auditoria inviolável',  body: 'Cada deploy, login e alteração de configuração gravados em registro imutável e append-only.' },
+  { icon: 'offline',  title: 'Alerta de offline',     body: 'Notificação no dashboard quando uma máquina para de fazer check-in após o timeout.' },
+  { icon: 'briefing', title: 'Resumo diário',         body: 'Snapshot da saúde da frota entregue ao painel de notificações todas as manhãs.' },
+  { icon: 'tenant',   title: 'Multi-tenant',          body: 'Modo cloud vincula cada requisição à sua org. Acesso entre tenants é bloqueado estruturalmente.' },
 ];
 
 export default function Home() {
@@ -51,8 +49,8 @@ export default function Home() {
 
   return (
     <Layout
-      title="Windows Update Management"
-      description="PatchOne — Windows software update management for Brazilian SMEs. Auto-discovery, one-click deploy, tamper-proof audit, offline-capable.">
+      title="Gerenciamento de Atualizações Windows"
+      description="PatchOne — Gerenciamento de atualizações de software Windows para PMEs brasileiras. Autodescoberta, deploy com um clique, auditoria inviolável.">
 
       <main className={styles.main}>
         <div className={styles.container}>
@@ -61,67 +59,66 @@ export default function Home() {
           <section className="vo-hero">
             <div className="vo-hero-meta">
               <span className="vo-dot" />
-              <span>v1.0 · Stable release</span>
+              <span>v1.0 · Versão Estável</span>
               <span className="vo-pipe">|</span>
-              <span>A Securisoft product</span>
+              <span>Um produto Securisoft</span>
               <span className="vo-pipe">|</span>
-              <span>GravityZone-compatible</span>
+              <span>Compatível com GravityZone</span>
             </div>
 
             <h1 className="vo-title">
-              Patch every Windows endpoint.<br /><em>In one place.</em>
+              Atualize cada endpoint Windows.<br /><em>Em um só lugar.</em>
             </h1>
 
             <p className="vo-lede">
-              PatchOne is a Windows update management platform for fleets of 10–500 machines —
-              discovery, deployment, and an immutable audit trail, with no per-seat fee and no
-              manual enrollment.
+              PatchOne é uma plataforma de gerenciamento de atualizações Windows para frotas
+              de 10 a 500 máquinas — descoberta, implantação e auditoria imutável, sem taxa
+              por máquina e sem cadastro manual.
             </p>
 
             <div className={styles.heroButtons}>
               <Link className="button button--primary button--lg" to="/docs/getting-started/quickstart">
-                Quick Start — 5 min
+                Início Rápido — 5 min
               </Link>
               <Link className="button button--outline button--secondary button--lg" to="/docs/intro">
-                Read the docs
+                Ler a documentação
               </Link>
             </div>
 
-            {/* KPI strip */}
             <div className="vo-hero-stats">
               <div className="vo-stat">
-                <div className="vo-stat-num">500<em>max</em></div>
-                <div className="vo-stat-label">Machines per org</div>
+                <div className="vo-stat-num">500<em>máx</em></div>
+                <div className="vo-stat-label">Máquinas por org</div>
               </div>
               <div className="vo-stat">
                 <div className="vo-stat-num">5<em>min</em></div>
-                <div className="vo-stat-label">Time to first deploy</div>
+                <div className="vo-stat-label">Tempo para o 1.º deploy</div>
               </div>
               <div className="vo-stat">
                 <div className="vo-stat-num">0<em>$</em></div>
-                <div className="vo-stat-label">Per-seat licensing</div>
+                <div className="vo-stat-label">Licença por máquina</div>
               </div>
               <div className="vo-stat">
-                <div className="vo-stat-num">50<em>titles</em></div>
-                <div className="vo-stat-label">Catalog seeded</div>
+                <div className="vo-stat-num">50<em>títulos</em></div>
+                <div className="vo-stat-label">Catálogo pré-carregado</div>
               </div>
             </div>
           </section>
 
           {/* ── INSTALL TERMINAL ─────────────────────────── */}
           <h2 className="vo-section">
-            <span className="vo-section-num">§ 01 · Install</span>
-            Get running in five minutes
+            <span className="vo-section-num">§ 01 · Instalação</span>
+            Em funcionamento em cinco minutos
           </h2>
           <p style={{ color: 'var(--vo-text-dim)', marginBottom: 0, maxWidth: 560 }}>
-            On-premises mode runs on a single Windows Server. One script handles
-            the setup from start to finish.
+            O modo on-premises roda em um único Windows Server. Um script cuida de toda
+            a configuração do início ao fim.
           </p>
 
           <div className="vo-term">
             <div className="vo-term-bar">
               <div className="vo-term-dots"><span /><span /><span /></div>
-              <span className="vo-term-title">cmd · Administrator · install_server.bat</span>
+              <span className="vo-term-title">cmd · Administrador · install_server.bat</span>
             </div>
             <div className="vo-term-body">
               <div><span className="prompt">C:\&gt;</span>git clone &lt;repo&gt; patchone</div>
@@ -129,55 +126,55 @@ export default function Home() {
               <div><span className="prompt">C:\&gt;</span>copy server\.env.example server\.env</div>
               <div><span className="prompt">C:\&gt;</span>deploy\install_server.bat</div>
               <div className="cmt">  ⤷ python venv ...................... <span className="ok">ok</span></div>
-              <div className="cmt">  ⤷ database init .................... <span className="ok">ok</span></div>
-              <div className="cmt">  ⤷ seed catalog (50 titles) ......... <span className="ok">ok</span></div>
-              <div className="cmt">  ⤷ register Windows Service ......... <span className="ok">ok</span></div>
-              <div className="cmt">  ⤷ open firewall rule ............... <span className="ok">ok</span></div>
-              <div><span className="arrow">→</span>Dashboard ready at <span className="str">http://&lt;server-ip&gt;</span></div>
+              <div className="cmt">  ⤷ banco de dados ................... <span className="ok">ok</span></div>
+              <div className="cmt">  ⤷ catálogo (50 títulos) ............ <span className="ok">ok</span></div>
+              <div className="cmt">  ⤷ registrar Windows Service ........ <span className="ok">ok</span></div>
+              <div className="cmt">  ⤷ regra de firewall ................ <span className="ok">ok</span></div>
+              <div><span className="arrow">→</span>Dashboard disponível em <span className="str">http://&lt;server-ip&gt;</span></div>
             </div>
           </div>
 
           {/* ── CHOOSE YOUR PATH ─────────────────────────── */}
           <h2 className="vo-section">
-            <span className="vo-section-num">§ 02 · Choose your path</span>
-            Three ways in
+            <span className="vo-section-num">§ 02 · Escolha seu caminho</span>
+            Três opções de entrada
           </h2>
           <p style={{ color: 'var(--vo-text-dim)', marginBottom: 0, maxWidth: 560 }}>
-            All three options run the same software. Your choice depends on network
-            constraints and whether you need multi-tenant isolation.
+            As três opções rodam o mesmo software. A escolha depende das restrições de rede
+            e da necessidade de isolamento multi-tenant.
           </p>
 
           <div className="vo-cards">
             <Link className="vo-card" to="/docs/installation/on-premises">
               <div className="vo-card-eyebrow"><span>A</span><span className="vo-rule" /><span>Self-hosted</span></div>
               <div className="vo-card-title">On-premises</div>
-              <div className="vo-card-body">Single Windows Server, no internet required after setup. Best for closed networks.</div>
-              <div className="vo-card-cta">Install on a server <span className="vo-arr">→</span></div>
+              <div className="vo-card-body">Único Windows Server, sem internet após a configuração. Ideal para redes fechadas.</div>
+              <div className="vo-card-cta">Instalar no servidor <span className="vo-arr">→</span></div>
             </Link>
             <Link className="vo-card" to="/docs/installation/cloud">
               <div className="vo-card-eyebrow"><span>B</span><span className="vo-rule" /><span>SaaS · multi-tenant</span></div>
-              <div className="vo-card-title">Cloud, with Docker</div>
-              <div className="vo-card-body">Docker Compose, TLS termination, and multi-tenant isolation. Best for MSPs managing many client orgs.</div>
-              <div className="vo-card-cta">Run in the cloud <span className="vo-arr">→</span></div>
+              <div className="vo-card-title">Cloud com Docker</div>
+              <div className="vo-card-body">Docker Compose, TLS e isolamento multi-tenant. Ideal para MSPs com múltiplas organizações clientes.</div>
+              <div className="vo-card-cta">Rodar na nuvem <span className="vo-arr">→</span></div>
             </Link>
             <Link className="vo-card" to="/docs/installation/agent-deployment">
               <div className="vo-card-eyebrow"><span>C</span><span className="vo-rule" /><span>Endpoint</span></div>
-              <div className="vo-card-title">Agent deployment</div>
-              <div className="vo-card-body">Push the agent via GPO, WinRM, or the included bulk-deploy script. Self-registers on first check-in.</div>
-              <div className="vo-card-cta">Roll out at scale <span className="vo-arr">→</span></div>
+              <div className="vo-card-title">Deploy do Agente</div>
+              <div className="vo-card-body">Envie o agente via GPO, WinRM ou o script de deploy em massa. Registro automático no primeiro check-in.</div>
+              <div className="vo-card-cta">Escalar para a frota <span className="vo-arr">→</span></div>
             </Link>
             <Link className="vo-card" to="/docs/dashboard/overview">
               <div className="vo-card-eyebrow"><span>D</span><span className="vo-rule" /><span>Console</span></div>
-              <div className="vo-card-title">Tour the dashboard</div>
-              <div className="vo-card-body">Fleet view, deploy console, immutable audit log, daily briefing — the surface your IT team lives in.</div>
-              <div className="vo-card-cta">See the dashboard <span className="vo-arr">→</span></div>
+              <div className="vo-card-title">Tour pelo Dashboard</div>
+              <div className="vo-card-body">Visão de frota, console de deploy, log de auditoria imutável e resumo diário — a superfície onde seu time de TI vive.</div>
+              <div className="vo-card-cta">Ver o dashboard <span className="vo-arr">→</span></div>
             </Link>
           </div>
 
           {/* ── CAPABILITIES ─────────────────────────────── */}
           <h2 className="vo-section">
-            <span className="vo-section-num">§ 03 · Capabilities</span>
-            What you get on day one
+            <span className="vo-section-num">§ 03 · Capacidades</span>
+            O que você obtém no primeiro dia
           </h2>
 
           <div className="vo-cap-grid">
@@ -192,59 +189,58 @@ export default function Home() {
 
           {/* ── HOW IT WORKS ─────────────────────────────── */}
           <h2 className="vo-section">
-            <span className="vo-section-num">§ 04 · Architecture</span>
-            Pull-model, always
+            <span className="vo-section-num">§ 04 · Arquitetura</span>
+            Modelo pull, sempre
           </h2>
           <p style={{ color: 'var(--vo-text-dim)', maxWidth: 600, marginBottom: 16 }}>
-            The agent always initiates the connection — the server never reaches inward.
-            No inbound firewall rules on endpoints, no listening ports, works behind NAT,
-            proxies, and VPNs.
+            O agente sempre inicia a conexão — o servidor nunca alcança os endpoints. Sem
+            regras de firewall de entrada, sem portas abertas, funciona atrás de NAT,
+            proxies e VPNs.
           </p>
 
           <div className="vo-callout">
             <div className="vo-callout-bar" />
             <div>
-              <strong>Why pull, not push?</strong>
-              The server is a trusted hub, not a remote-command executor. Agents check in
-              on a schedule, pick up pending jobs, and report results. The server cannot
-              initiate arbitrary actions on endpoints.
+              <strong>Por que pull, não push?</strong>
+              O servidor é um hub confiável, não um executor de comandos remotos. Os agentes
+              fazem check-in em horário definido, buscam jobs pendentes e reportam resultados.
+              O servidor não pode iniciar ações arbitrárias nos endpoints.
             </div>
           </div>
 
           {/* ── DEPLOYMENT MODES ─────────────────────────── */}
           <h2 className="vo-section">
-            <span className="vo-section-num">§ 05 · Deployment</span>
-            Two modes, one product
+            <span className="vo-section-num">§ 05 · Implantação</span>
+            Dois modos, um produto
           </h2>
 
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13.5, marginBottom: 48 }}>
             <thead>
               <tr>
-                <th style={{ textAlign: 'left', fontFamily: 'var(--vo-font-mono)', fontSize: 10, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--vo-text-faint)', padding: '10px 14px', borderBottom: '1px solid var(--vo-border-strong)', background: 'var(--vo-surface)' }}>Mode</th>
-                <th style={{ textAlign: 'left', fontFamily: 'var(--vo-font-mono)', fontSize: 10, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--vo-text-faint)', padding: '10px 14px', borderBottom: '1px solid var(--vo-border-strong)', background: 'var(--vo-surface)' }}>Description</th>
-                <th style={{ textAlign: 'left', fontFamily: 'var(--vo-font-mono)', fontSize: 10, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--vo-text-faint)', padding: '10px 14px', borderBottom: '1px solid var(--vo-border-strong)', background: 'var(--vo-surface)' }}>Setup</th>
+                {['Modo', 'Descrição', 'Configuração'].map(h => (
+                  <th key={h} style={{ textAlign: 'left', fontFamily: 'var(--vo-font-mono)', fontSize: 10, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--vo-text-faint)', padding: '10px 14px', borderBottom: '1px solid var(--vo-border-strong)', background: 'var(--vo-surface)' }}>{h}</th>
+                ))}
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td style={{ padding: '12px 14px', color: 'var(--vo-text)', fontWeight: 500, borderBottom: '1px solid var(--vo-rule)' }}>On-premises</td>
-                <td style={{ padding: '12px 14px', color: 'var(--vo-text-dim)', borderBottom: '1px solid var(--vo-rule)' }}>Single Windows Server on your LAN. No internet dependency after setup.</td>
+                <td style={{ padding: '12px 14px', color: 'var(--vo-text-dim)', borderBottom: '1px solid var(--vo-rule)' }}>Único Windows Server na sua rede. Sem dependência de internet após a configuração.</td>
                 <td style={{ padding: '12px 14px', color: 'var(--vo-text-dim)', borderBottom: '1px solid var(--vo-rule)', fontFamily: 'var(--vo-font-mono)', fontSize: 12 }}><code style={{ color: 'var(--vo-accent-bright)' }}>install_server.bat</code></td>
               </tr>
               <tr>
                 <td style={{ padding: '12px 14px', color: 'var(--vo-text)', fontWeight: 500, borderBottom: '1px solid var(--vo-rule)' }}>Cloud / SaaS</td>
-                <td style={{ padding: '12px 14px', color: 'var(--vo-text-dim)', borderBottom: '1px solid var(--vo-rule)' }}>Docker-based, TLS-terminated, multi-tenant isolation.</td>
+                <td style={{ padding: '12px 14px', color: 'var(--vo-text-dim)', borderBottom: '1px solid var(--vo-rule)' }}>Baseado em Docker, TLS terminado, isolamento multi-tenant.</td>
                 <td style={{ padding: '12px 14px', color: 'var(--vo-text-dim)', borderBottom: '1px solid var(--vo-rule)', fontFamily: 'var(--vo-font-mono)', fontSize: 12 }}><code style={{ color: 'var(--vo-accent-bright)' }}>docker compose up</code></td>
               </tr>
             </tbody>
           </table>
 
-          {/* ── NEXT STEPS ───────────────────────────────── */}
           <div className="vo-page-foot">
             <span />
             <Link className="vo-next-link" to="/docs/getting-started/quickstart">
-              <span className="vo-nl-label">Next →</span>
-              <span className="vo-nl-title">Quick Start</span>
+              <span className="vo-nl-label">Próximo →</span>
+              <span className="vo-nl-title">Início Rápido</span>
             </Link>
           </div>
 

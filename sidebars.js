@@ -4,11 +4,11 @@ const sidebars = {
     {
       type: 'doc',
       id: 'intro',
-      label: 'Introduction',
+      label: 'Introdução',
     },
     {
       type: 'category',
-      label: 'Getting Started',
+      label: 'Primeiros Passos',
       collapsed: false,
       items: [
         'getting-started/quickstart',
@@ -17,7 +17,7 @@ const sidebars = {
     },
     {
       type: 'category',
-      label: 'Installation',
+      label: 'Instalação',
       items: [
         'installation/on-premises',
         'installation/cloud',
@@ -40,7 +40,7 @@ const sidebars = {
     },
     {
       type: 'category',
-      label: 'Agent',
+      label: 'Agente',
       items: [
         'agent/overview',
         'agent/configuration',
@@ -49,7 +49,7 @@ const sidebars = {
     },
     {
       type: 'category',
-      label: 'API Reference',
+      label: 'Referência da API',
       items: [
         'api/overview',
         'api/authentication',
@@ -63,7 +63,7 @@ const sidebars = {
     },
     {
       type: 'category',
-      label: 'Security',
+      label: 'Segurança',
       items: [
         'security/gravityzone',
         'security/access-control',
@@ -71,7 +71,7 @@ const sidebars = {
     },
     {
       type: 'category',
-      label: 'Architecture',
+      label: 'Arquitetura',
       items: [
         'architecture/overview',
         'architecture/data-model',

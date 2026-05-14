@@ -8,7 +8,20 @@ services:
       - /app/node_modules
     ports:
       - "3000:3000"
+    command: ["npx", "docusaurus", "start", "--host", "0.0.0.0", "--locale", "pt-BR"]
     profiles: [dev]
+
+  docs-dev-en:
+    build:
+      context: .
+      target: dev
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - "3001:3000"
+    command: ["npx", "docusaurus", "start", "--host", "0.0.0.0", "--locale", "en"]
+    profiles: [dev-en]
 
   docs-prod:
     build:

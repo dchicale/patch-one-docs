@@ -1,0 +1,14 @@
+{
+  "item.label.Documentação": {
+    "message": "Documentation",
+    "description": "Navbar item label"
+  },
+  "item.label.API": {
+    "message": "API",
+    "description": "Navbar item label"
+  },
+  "item.label.Arquitetura": {
+    "message": "Architecture",
+    "description": "Navbar item label"
+  }
+}

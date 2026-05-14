@@ -1,24 +1,24 @@
 ---
 id: backup
-title: Backup API
+title: API de Backup
 sidebar_position: 8
 ---
 
-# Backup API
+# API de Backup
 
-Manage database backups programmatically.
+Gerencie backups do banco de dados de forma programática.
 
 ## Endpoints
 
-### List backups
+### Listar backups
 
 ```
 GET /api/backup
 ```
 
-**Auth:** Required
+**Auth:** Obrigatória
 
-**Response (200):**
+**Resposta (200):**
 
 ```json
 [
@@ -41,17 +41,17 @@ GET /api/backup
 
 ---
 
-### Trigger a manual backup
+### Acionar um backup manual
 
 ```
 POST /api/backup
 ```
 
-**Auth:** Required
+**Auth:** Obrigatória
 
-**Request body:** None
+**Corpo da requisição:** Nenhum
 
-**Response (201):**
+**Resposta (201):**
 
 ```json
 {
@@ -63,24 +63,24 @@ POST /api/backup
 }
 ```
 
-**Audit:** Logged as `backup_created`.
+**Auditoria:** Registrado como `backup_created`.
 
 ---
 
-### Download a backup file
+### Baixar um arquivo de backup
 
 ```
 GET /api/backup/{backup_id}/download
 ```
 
-**Auth:** Required
+**Auth:** Obrigatória
 
-**Response:** Binary file download.
+**Resposta:** Download de arquivo binário.
 
-- On-premises: SQLite `.db` file
-- Cloud mode: PostgreSQL dump file
+- On-premises: arquivo SQLite `.db`
+- Modo nuvem: arquivo de dump do PostgreSQL
 
-Use this endpoint to automate off-site backup archiving:
+Use este endpoint para automatizar o arquivamento de backups fora do site:
 
 ```bash
 BACKUP_ID=$(curl -s -b cookies.txt http://server:8000/api/backup | jq -r '.[0].id')
@@ -90,25 +90,25 @@ curl -b cookies.txt http://server:8000/api/backup/$BACKUP_ID/download \
 
 ---
 
-### Delete a backup
+### Excluir um backup
 
 ```
 DELETE /api/backup/{backup_id}
 ```
 
-**Auth:** Required
+**Auth:** Obrigatória
 
-**Response (204):** No content. The backup file is permanently deleted.
+**Resposta (204):** Sem conteúdo. O arquivo de backup é excluído permanentemente.
 
-**Error responses:**
+**Respostas de erro:**
 
-| Code | Cause |
+| Código | Causa |
 |---|---|
-| 404 | Backup not found |
+| 404 | Backup não encontrado |
 
-**Audit:** Logged as `backup_deleted`.
+**Auditoria:** Registrado como `backup_deleted`.
 
-## Automated off-site archiving example
+## Exemplo de arquivamento automatizado fora do site
 
 ```python
 import requests

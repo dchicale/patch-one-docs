@@ -1,64 +1,64 @@
 ---
 id: machines
-title: Fleet Management (Machines)
+title: Gerenciamento da Frota (Máquinas)
 sidebar_position: 2
 ---
 
-# Fleet Management
+# Gerenciamento da Frota
 
-The **Machines** page is the primary fleet view. It shows every registered machine and its current status.
+A página **Máquinas** é a visualização principal da frota. Ela exibe todas as máquinas registradas e seus status atuais.
 
-## Machine list
+## Lista de máquinas
 
-Each row displays:
+Cada linha exibe:
 
-| Field | Description |
+| Campo | Descrição |
 |---|---|
-| **Hostname** | Windows hostname of the machine |
-| **Status** | Online / Offline badge |
-| **OS** | Windows version string |
-| **Agent version** | Running version of `PatchPilotAgent.exe` |
-| **Last seen** | Timestamp of the most recent heartbeat |
-| **Pending updates** | Number of available winget updates |
-| **Tags** | Admin-assigned labels |
+| **Hostname** | Hostname Windows da máquina |
+| **Status** | Badge Online / Offline |
+| **SO** | String de versão do Windows |
+| **Versão do agente** | Versão em execução do `PatchPilotAgent.exe` |
+| **Visto pela última vez** | Timestamp do heartbeat mais recente |
+| **Atualizações pendentes** | Número de atualizações winget disponíveis |
+| **Tags** | Rótulos atribuídos pelo administrador |
 
-## Search and filter
+## Pesquisa e filtro
 
-The search bar filters machines by hostname or tag in real time. The status filter lets you show only **Online** or **Offline** machines.
+A barra de pesquisa filtra as máquinas por hostname ou tag em tempo real. O filtro de status permite exibir apenas máquinas **Online** ou **Offline**.
 
-## Machine detail
+## Detalhes da máquina
 
-Click any machine to open its detail page. The detail page shows:
+Clique em qualquer máquina para abrir sua página de detalhes. A página de detalhes exibe:
 
-### Software inventory
+### Inventário de software
 
-A full list of installed software, sourced from the Windows registry via `Win32_Product`. Updated every heartbeat (every 5 minutes).
+Uma lista completa do software instalado, proveniente do registro do Windows via `Win32_Product`. Atualizado a cada heartbeat (a cada 5 minutos).
 
-Columns: **Name**, **Version**, **Publisher**, **Install date**
+Colunas: **Nome**, **Versão**, **Fabricante**, **Data de instalação**
 
-### Pending updates
+### Atualizações pendentes
 
-Software titles with available winget updates are highlighted. These badges drive the update count shown in the machine list.
+Títulos de software com atualizações winget disponíveis são destacados. Esses badges alimentam a contagem de atualizações exibida na lista de máquinas.
 
-### Tags and notes
+### Tags e notas
 
-- **Tags** — comma-separated labels for grouping machines (e.g. `office`, `warehouse`, `priority`)
-- **Notes** — free-text field for admin notes (e.g. asset tag, location)
+- **Tags** — rótulos separados por vírgula para agrupamento de máquinas (ex.: `escritório`, `almoxarifado`, `prioridade`)
+- **Notas** — campo de texto livre para notas do administrador (ex.: patrimônio, localização)
 
-Tags and notes are saved immediately on edit.
+Tags e notas são salvas imediatamente após a edição.
 
-### Deploy from detail
+### Implantar a partir dos detalhes
 
-You can initiate a deploy directly from the machine detail page. The machine is pre-selected.
+Você pode iniciar uma implantação diretamente da página de detalhes da máquina. A máquina já vem pré-selecionada.
 
-## Soft-delete
+## Exclusão suave
 
-Deleting a machine from the UI marks it as inactive (`status = deleted`) rather than removing the row. The machine is hidden from the default fleet view but remains in the audit log. If the same physical machine checks in again, it is automatically restored.
+Excluir uma máquina pela interface a marca como inativa (`status = deleted`) em vez de remover o registro. A máquina é ocultada da visualização padrão da frota, mas permanece no log de auditoria. Se a mesma máquina física fizer check-in novamente, ela é restaurada automaticamente.
 
-## Machine registration
+## Registro de máquinas
 
-Machines are identified by their **SMBIOS UUID** (read from the Windows registry). This UUID persists across renames and OS reinstalls to the same hardware. When an agent sends its first heartbeat, the server creates a machine record automatically — no manual enrollment required.
+As máquinas são identificadas pelo seu **UUID SMBIOS** (lido do registro do Windows). Esse UUID persiste após renomeações e reinstalações do SO no mesmo hardware. Quando um agente envia seu primeiro heartbeat, o servidor cria automaticamente um registro de máquina — nenhum cadastro manual é necessário.
 
-## Offline alerting
+## Alerta de offline
 
-When a machine misses heartbeats for longer than `HEARTBEAT_TIMEOUT_MINUTES` (default: 30 minutes), a notification is generated and the machine's badge turns **Offline**. See [Notifications](/docs/dashboard/notifications).
+Quando uma máquina deixa de enviar heartbeats por mais tempo que `HEARTBEAT_TIMEOUT_MINUTES` (padrão: 30 minutos), uma notificação é gerada e o badge da máquina muda para **Offline**. Consulte [Notificações](/docs/dashboard/notifications).

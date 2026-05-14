@@ -1,0 +1,34 @@
+{
+  "sidebar.mainSidebar.doc.intro": {
+    "message": "Introduction",
+    "description": "The label for the doc with id=intro"
+  },
+  "sidebar.mainSidebar.category.Primeiros Passos": {
+    "message": "Getting Started",
+    "description": "The label for category Primeiros Passos in sidebar mainSidebar"
+  },
+  "sidebar.mainSidebar.category.Instalação": {
+    "message": "Installation",
+    "description": "The label for category Instalação in sidebar mainSidebar"
+  },
+  "sidebar.mainSidebar.category.Dashboard": {
+    "message": "Dashboard",
+    "description": "The label for category Dashboard in sidebar mainSidebar"
+  },
+  "sidebar.mainSidebar.category.Agente": {
+    "message": "Agent",
+    "description": "The label for category Agente in sidebar mainSidebar"
+  },
+  "sidebar.mainSidebar.category.Referência da API": {
+    "message": "API Reference",
+    "description": "The label for category Referência da API in sidebar mainSidebar"
+  },
+  "sidebar.mainSidebar.category.Segurança": {
+    "message": "Security",
+    "description": "The label for category Segurança in sidebar mainSidebar"
+  },
+  "sidebar.mainSidebar.category.Arquitetura": {
+    "message": "Architecture",
+    "description": "The label for category Arquitetura in sidebar mainSidebar"
+  }
+}

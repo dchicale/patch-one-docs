@@ -1,14 +1,14 @@
 ---
 id: configuration
-title: Agent Configuration
+title: Configuração do Agente
 sidebar_position: 2
 ---
 
-# Agent Configuration
+# Configuração do Agente
 
-The agent reads its configuration from `config.ini` in the same directory as `PatchPilotAgent.exe`.
+O agente lê sua configuração do arquivo `config.ini` no mesmo diretório que o `PatchPilotAgent.exe`.
 
-## config.ini reference
+## Referência do config.ini
 
 ```ini
 [server]
@@ -21,34 +21,34 @@ HEARTBEAT_INTERVAL=300
 LOG_LEVEL=INFO
 ```
 
-### [server] section
+### Seção [server]
 
-| Key | Type | Required | Description |
+| Chave | Tipo | Obrigatório | Descrição |
 |---|---|---|---|
-| `SERVER_URL` | URL | Yes | Base URL of the PatchOne server. Use HTTPS for cloud deployments. No trailing slash. |
-| `TENANT_ID` | String | Yes | Your organisation identifier. Use `default` for on-premises; cloud tenants receive a value during onboarding. |
-| `API_KEY` | String | Yes | Shared secret provided by your PatchOne administrator. |
-| `HEARTBEAT_INTERVAL` | Integer | No | Seconds between check-ins. Default: `300`. Minimum: `60`. |
+| `SERVER_URL` | URL | Sim | URL base do servidor PatchOne. Use HTTPS para implantações em nuvem. Sem barra no final. |
+| `TENANT_ID` | String | Sim | Identificador da sua organização. Use `default` para on-premises; locatários em nuvem recebem um valor durante o processo de integração. |
+| `API_KEY` | String | Sim | Segredo compartilhado fornecido pelo administrador do PatchOne. |
+| `HEARTBEAT_INTERVAL` | Integer | Não | Segundos entre check-ins. Padrão: `300`. Mínimo: `60`. |
 
-### [agent] section
+### Seção [agent]
 
-| Key | Type | Required | Description |
+| Chave | Tipo | Obrigatório | Descrição |
 |---|---|---|---|
-| `LOG_LEVEL` | String | No | Log verbosity. One of: `DEBUG`, `INFO`, `WARNING`, `ERROR`. Default: `INFO`. |
+| `LOG_LEVEL` | String | Não | Verbosidade do log. Um dos valores: `DEBUG`, `INFO`, `WARNING`, `ERROR`. Padrão: `INFO`. |
 
-## Configuration in GPO deployments
+## Configuração em implantações via GPO
 
-When deploying via GPO, store `config.ini` alongside the agent binary in a shared network location. The GPO copies both files to each machine before the service starts.
+Ao implantar via GPO, armazene o `config.ini` junto ao binário do agente em um local de rede compartilhado. O GPO copia ambos os arquivos para cada máquina antes de o serviço iniciar.
 
-## Applying configuration changes
+## Aplicando alterações de configuração
 
-After editing `config.ini`, restart the agent service for changes to take effect:
+Após editar o `config.ini`, reinicie o serviço do agente para que as alterações entrem em vigor:
 
 ```bat
 sc stop PatchOneAgent
 sc start PatchOneAgent
 ```
 
-## Security
+## Segurança
 
-`config.ini` contains the `API_KEY`. Restrict access with NTFS permissions so only the service account and administrators can read the file.
+O `config.ini` contém a `API_KEY`. Restrinja o acesso com permissões NTFS para que apenas a conta de serviço e os administradores possam ler o arquivo.

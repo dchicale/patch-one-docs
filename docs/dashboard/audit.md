@@ -1,63 +1,63 @@
 ---
 id: audit
-title: Audit Log
+title: Log de Auditoria
 sidebar_position: 6
 ---
 
-# Audit Log
+# Log de Auditoria
 
-The **Audit** page provides an immutable record of every significant action performed in PatchOne. It is designed for compliance reporting and incident investigation.
+A página **Auditoria** fornece um registro imutável de toda ação significativa realizada no PatchOne. Ela é projetada para relatórios de conformidade e investigação de incidentes.
 
-## What is logged
+## O que é registrado
 
-Every state-changing operation generates an audit entry. This is enforced at the middleware layer — there is no way to perform an action without it appearing in the log.
+Toda operação que altera estado gera uma entrada de auditoria. Isso é aplicado na camada de middleware — não é possível realizar uma ação sem que ela apareça no log.
 
-| Event type | Triggered by |
+| Tipo de evento | Disparado por |
 |---|---|
-| `admin_login` | Successful admin login |
-| `admin_logout` | Admin logout |
-| `admin_login_failed` | Failed login attempt |
-| `machine_registered` | New machine checks in for the first time |
-| `machine_deleted` | Admin soft-deletes a machine |
-| `machine_updated` | Admin edits tags or notes |
-| `deploy_queued` | Admin queues a deploy job |
-| `deploy_completed` | Agent reports job success |
-| `deploy_failed` | Agent reports job failure |
-| `catalog_created` | Admin creates a custom catalog entry |
-| `catalog_updated` | Admin edits a catalog entry |
-| `catalog_deleted` | Admin soft-deletes a catalog entry |
-| `backup_created` | Manual or scheduled backup completes |
-| `backup_deleted` | Admin deletes a backup file |
-| `config_changed` | Server configuration updated |
+| `admin_login` | Login bem-sucedido do administrador |
+| `admin_logout` | Logout do administrador |
+| `admin_login_failed` | Tentativa de login com falha |
+| `machine_registered` | Nova máquina faz check-in pela primeira vez |
+| `machine_deleted` | Administrador exclui suavemente uma máquina |
+| `machine_updated` | Administrador edita tags ou notas |
+| `deploy_queued` | Administrador enfileira um job de implantação |
+| `deploy_completed` | Agente reporta sucesso do job |
+| `deploy_failed` | Agente reporta falha do job |
+| `catalog_created` | Administrador cria uma entrada personalizada no catálogo |
+| `catalog_updated` | Administrador edita uma entrada do catálogo |
+| `catalog_deleted` | Administrador exclui suavemente uma entrada do catálogo |
+| `backup_created` | Backup manual ou agendado concluído |
+| `backup_deleted` | Administrador exclui um arquivo de backup |
+| `config_changed` | Configuração do servidor atualizada |
 
-## Audit log fields
+## Campos do log de auditoria
 
-| Field | Description |
+| Campo | Descrição |
 |---|---|
-| **Timestamp** | UTC timestamp of the event |
-| **Event type** | One of the event types above |
-| **Actor** | Admin username that triggered the event |
-| **Target** | Affected resource (machine hostname, catalog name, job ID, etc.) |
-| **Detail** | JSON blob with additional context |
-| **IP address** | Remote IP of the admin's browser |
+| **Timestamp** | Timestamp UTC do evento |
+| **Tipo de evento** | Um dos tipos de evento acima |
+| **Ator** | Nome de usuário do administrador que disparou o evento |
+| **Alvo** | Recurso afetado (hostname da máquina, nome do catálogo, ID do job, etc.) |
+| **Detalhe** | Blob JSON com contexto adicional |
+| **Endereço IP** | IP remoto do navegador do administrador |
 
-## Filtering
+## Filtragem
 
-Filter the log by:
-- **Event type** — select one or more from the dropdown
-- **Date range** — from / to date pickers
-- **Actor** — filter to a specific admin username
+Filtre o log por:
+- **Tipo de evento** — selecione um ou mais no dropdown
+- **Intervalo de datas** — seletores de data de início / fim
+- **Ator** — filtrar por um nome de usuário de administrador específico
 
-## CSV export
+## Exportar CSV
 
-Click **Export CSV** to download a filtered or full log as a CSV file. The export respects the current filters.
+Clique em **Exportar CSV** para baixar o log filtrado ou completo como arquivo CSV. A exportação respeita os filtros ativos.
 
-The CSV columns match the log fields above, with the `detail` JSON column flattened to a readable string.
+As colunas do CSV correspondem aos campos do log acima, com a coluna JSON `detail` convertida para uma string legível.
 
-## Tamper protection
+## Proteção contra adulteração
 
-Audit entries cannot be edited or deleted through any API endpoint or UI action. The underlying database table has no `UPDATE` or `DELETE` routes. In on-premises mode, protect the SQLite file with OS-level file permissions (`icacls`).
+As entradas de auditoria não podem ser editadas ou excluídas por nenhum endpoint de API ou ação da interface. A tabela do banco de dados subjacente não possui rotas de `UPDATE` ou `DELETE`. No modo on-premises, proteja o arquivo SQLite com permissões de arquivo no nível do SO (`icacls`).
 
-## Retention
+## Retenção
 
-Audit entries are retained indefinitely by default. There is no automatic purge policy in v1.0. If disk space is a concern, export and archive old entries before the database grows beyond the server's capacity.
+As entradas de auditoria são retidas indefinidamente por padrão. Não há política de purga automática na v1.0. Se o espaço em disco for uma preocupação, exporte e arquive entradas antigas antes que o banco de dados ultrapasse a capacidade do servidor.

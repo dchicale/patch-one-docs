@@ -1,29 +1,29 @@
 ---
 id: self-update
-title: Agent Self-Update
+title: Atualização Automática do Agente
 sidebar_position: 3
 ---
 
-# Agent Self-Update
+# Atualização Automática do Agente
 
-The agent updates itself automatically when the server publishes a new version. No manual action is required on individual machines.
+O agente se atualiza automaticamente quando o servidor publica uma nova versão. Nenhuma intervenção manual é necessária nas máquinas individuais.
 
-## How it works
+## Como funciona
 
-On each check-in, the server includes the latest available agent version in its response. If the agent detects it is running an older version, it:
+Em cada check-in, o servidor inclui a versão mais recente disponível do agente em sua resposta. Se o agente detectar que está rodando uma versão mais antiga, ele:
 
-1. Downloads the new agent binary from the server
-2. Stops itself, replaces its own executable, and restarts as a service
-3. Reports the new running version on the next check-in
+1. Faz o download do novo binário do agente a partir do servidor
+2. Para a si mesmo, substitui seu próprio executável e reinicia como serviço
+3. Reporta a nova versão em execução no próximo check-in
 
-The entire process is transparent to end users.
+Todo o processo é transparente para os usuários finais.
 
 ## Rollback
 
-If the updated agent fails to start, the previous version is preserved as a backup file in the installation directory. Contact your system administrator to manually restore the previous binary if needed.
+Se o agente atualizado não conseguir iniciar, a versão anterior é preservada como arquivo de backup no diretório de instalação. Entre em contato com o administrador do sistema para restaurar manualmente o binário anterior, se necessário.
 
-## AV considerations
+## Considerações sobre AV
 
-During a self-update, the agent writes a new binary to a temporary location before moving it into place. If your AV software blocks this, the update will silently fail and the agent will continue running the current version.
+Durante uma atualização automática, o agente grava um novo binário em um local temporário antes de movê-lo para o lugar definitivo. Se o seu software AV bloquear isso, a atualização falhará silenciosamente e o agente continuará rodando a versão atual.
 
-Ensure the agent installation directory and process are excluded from AV real-time scanning. See [GravityZone coexistence](/docs/security/gravityzone).
+Certifique-se de que o diretório de instalação e o processo do agente estejam excluídos da varredura em tempo real do AV. Consulte [Coexistência com GravityZone](/docs/security/gravityzone).

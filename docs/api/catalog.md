@@ -1,31 +1,31 @@
 ---
 id: catalog
-title: Catalog API
+title: API de Catálogo
 sidebar_position: 5
 ---
 
-# Catalog API
+# API de Catálogo
 
-Manage the software catalog used in deploy operations.
+Gerencie o catálogo de software utilizado nas operações de deploy.
 
 ## Endpoints
 
-### List catalog items
+### Listar itens do catálogo
 
 ```
 GET /api/catalog
 ```
 
-**Auth:** Required
+**Auth:** Obrigatória
 
-**Query parameters:**
+**Parâmetros de consulta:**
 
-| Param | Type | Description |
+| Parâmetro | Tipo | Descrição |
 |---|---|---|
-| `category` | string | Filter by category (exact match, case-insensitive) |
-| `search` | string | Filter by name or publisher (partial match) |
+| `category` | string | Filtrar por categoria (correspondência exata, insensível a maiúsculas/minúsculas) |
+| `search` | string | Filtrar por nome ou editor (correspondência parcial) |
 
-**Response (200):**
+**Resposta (200):**
 
 ```json
 [
@@ -50,15 +50,15 @@ GET /api/catalog
 
 ---
 
-### Create a custom catalog entry
+### Criar uma entrada personalizada no catálogo
 
 ```
 POST /api/catalog
 ```
 
-**Auth:** Required
+**Auth:** Obrigatória
 
-**Request body:**
+**Corpo da requisição:**
 
 ```json
 {
@@ -69,23 +69,23 @@ POST /api/catalog
 }
 ```
 
-**Response (201):** The created catalog item object.
+**Resposta (201):** O objeto do item do catálogo criado.
 
-**Audit:** Logged as `catalog_created`.
+**Auditoria:** Registrado como `catalog_created`.
 
 ---
 
-### Update a catalog entry
+### Atualizar uma entrada do catálogo
 
 ```
 PATCH /api/catalog/{catalog_item_id}
 ```
 
-**Auth:** Required
+**Auth:** Obrigatória
 
-**Restriction:** Admins can only update their own custom entries. Built-in entries (`builtin: true`) cannot be updated.
+**Restrição:** Os administradores só podem atualizar suas próprias entradas personalizadas. Entradas nativas (`builtin: true`) não podem ser atualizadas.
 
-**Request body** (all fields optional):
+**Corpo da requisição** (todos os campos são opcionais):
 
 ```json
 {
@@ -94,29 +94,29 @@ PATCH /api/catalog/{catalog_item_id}
 }
 ```
 
-**Response (200):** Updated catalog item object.
+**Resposta (200):** Objeto do item do catálogo atualizado.
 
-**Audit:** Logged as `catalog_updated`.
+**Auditoria:** Registrado como `catalog_updated`.
 
 ---
 
-### Delete a catalog entry
+### Excluir uma entrada do catálogo
 
 ```
 DELETE /api/catalog/{catalog_item_id}
 ```
 
-**Auth:** Required
+**Auth:** Obrigatória
 
-**Restriction:** Custom entries only. Built-in entries cannot be deleted.
+**Restrição:** Apenas entradas personalizadas. Entradas nativas não podem ser excluídas.
 
-**Response (204):** No content. The entry is soft-deleted (hidden from lists, retained in job history).
+**Resposta (204):** Sem conteúdo. A entrada é excluída logicamente (ocultada das listas, mantida no histórico de jobs).
 
-**Error responses:**
+**Respostas de erro:**
 
-| Code | Cause |
+| Código | Causa |
 |---|---|
-| 403 | Attempt to delete a built-in entry |
-| 404 | Catalog item not found |
+| 403 | Tentativa de excluir uma entrada nativa |
+| 404 | Item do catálogo não encontrado |
 
-**Audit:** Logged as `catalog_deleted`.
+**Auditoria:** Registrado como `catalog_deleted`.

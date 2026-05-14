@@ -1,28 +1,28 @@
 ---
 id: quickstart
-title: Quick Start
+title: Início Rápido
 sidebar_position: 1
 ---
 
-# Quick Start
+# Início Rápido
 
-Get PatchOne running in under 5 minutes using the on-premises mode (SQLite, single Windows Server).
+Coloque o PatchOne em funcionamento em menos de 5 minutos usando o modo on-premises (SQLite, único Windows Server).
 
-## Prerequisites
+## Pré-requisitos
 
-- Windows Server 2019+ (or Windows 10/11 for dev/test)
-- Python 3.11+ installed
-- At least one Windows machine for the agent
+- Windows Server 2019+ (ou Windows 10/11 para desenvolvimento/teste)
+- Python 3.11+ instalado
+- Pelo menos uma máquina Windows para o agente
 
-## 1. Clone and configure
+## 1. Clonar e configurar
 
-```bat title="Clone the repository"
+```bat title="Clone o repositório"
 git clone <repo> patchone
 cd patchone
 copy server\.env.example server\.env
 ```
 
-Open `server\.env` and set at minimum:
+Abra `server\.env` e defina no mínimo:
 
 ```ini title="server/.env" {1,2,3}
 SECRET_KEY=change-this-to-a-random-string-at-least-32-chars
@@ -31,30 +31,30 @@ SERVER_MODE=onprem
 ```
 
 :::warning SECRET_KEY
-Generate a strong key with `python -c "import secrets; print(secrets.token_hex(32))"`. Never reuse or commit this value.
+Gere uma chave forte com `python -c "import secrets; print(secrets.token_hex(32))"`. Nunca reutilize ou comite este valor.
 :::
 
-## 2. Run the installer
+## 2. Executar o instalador
 
-```bat title="Run as Administrator"
+```bat title="Execute como Administrador"
 deploy\install_server.bat
 ```
 
-This single script:
-1. Creates a Python virtual environment
-2. Installs all server dependencies
-3. Initialises the database and seeds the 50-title software catalog
-4. Creates the initial admin account
-5. Registers PatchOne as a Windows Service
-6. Configures the firewall
+Este único script:
+1. Cria um ambiente virtual Python
+2. Instala todas as dependências do servidor
+3. Inicializa o banco de dados e popula o catálogo de 50 títulos de software
+4. Cria a conta de administrador inicial
+5. Registra o PatchOne como um Windows Service
+6. Configura o firewall
 
-## 3. Open the dashboard
+## 3. Abrir o dashboard
 
-Navigate to `http://<server-ip>` and log in with your admin credentials.
+Acesse `http://<server-ip>` e faça login com suas credenciais de administrador.
 
-## 4. Deploy the first agent
+## 4. Implantar o primeiro agente
 
-Create `config.ini` from the template and fill in your server URL and API key:
+Crie o `config.ini` a partir do template e preencha com a URL do servidor e a chave de API:
 
 ```ini title="config.ini" {2,3}
 [server]
@@ -67,32 +67,32 @@ HEARTBEAT_INTERVAL=300
 LOG_LEVEL=INFO
 ```
 
-Copy `PatchPilotAgent.exe` and `config.ini` to a test machine and run:
+Copie `PatchPilotAgent.exe` e `config.ini` para uma máquina de teste e execute:
 
-```bat title="Install the agent (run as Administrator)"
+```bat title="Instale o agente (execute como Administrador)"
 PatchPilotAgent.exe install
 ```
 
-The machine appears in the **Machines** page after the next check-in.
+A máquina aparece na página **Máquinas** após o próximo check-in.
 
-## 5. Push your first update
+## 5. Enviar a primeira atualização
 
-1. Go to **Deploy** in the dashboard
-2. Select the test machine
-3. Choose a software title from the catalog (e.g., *Google Chrome*)
-4. Click **Deploy**
+1. Vá para **Implantar** no dashboard
+2. Selecione a máquina de teste
+3. Escolha um título de software do catálogo (ex.: *Google Chrome*)
+4. Clique em **Implantar**
 
-The job runs silently on the agent. Check **Jobs** for the result.
+O job é executado silenciosamente no agente. Verifique **Jobs** para ver o resultado.
 
-## Verification checklist
+## Lista de verificação
 
-- [ ] Dashboard loads and login works
-- [ ] Test machine appears in **Fleet** view
-- [ ] Software inventory visible on machine detail page
-- [ ] Deploy job completes successfully
+- [ ] O dashboard carrega e o login funciona
+- [ ] A máquina de teste aparece na visualização **Frota**
+- [ ] Inventário de software visível na página de detalhes da máquina
+- [ ] Job de implantação concluído com sucesso
 
-## Next steps
+## Próximos passos
 
-- [Full on-premises installation guide](/docs/installation/on-premises)
-- [Agent deployment at scale (GPO / WinRM / PsExec)](/docs/installation/agent-deployment)
-- [Dashboard walkthrough](/docs/dashboard/overview)
+- [Guia completo de instalação on-premises](/docs/installation/on-premises)
+- [Implantação de agentes em escala (GPO / WinRM / PsExec)](/docs/installation/agent-deployment)
+- [Tour pelo dashboard](/docs/dashboard/overview)

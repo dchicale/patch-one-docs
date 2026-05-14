@@ -1,33 +1,33 @@
 ---
 id: on-premises
-title: On-Premises Installation
+title: Instalação On-Premises
 sidebar_position: 1
 ---
 
-# On-Premises Installation
+# Instalação On-Premises
 
-The on-premises mode runs on a single Windows Server on your local network. No internet connection is required after initial setup.
+O modo on-premises é executado em um único Windows Server na sua rede local. Nenhuma conexão com a internet é necessária após a configuração inicial.
 
-## Prerequisites
+## Pré-requisitos
 
-- Windows Server 2019 or later (Windows 10/11 acceptable for testing)
-- Python 3.11 or later, available in PATH
+- Windows Server 2019 ou posterior (Windows 10/11 aceitável para testes)
+- Python 3.11 ou posterior, disponível no PATH
 - Git
-- Administrator privileges on the server
+- Privilégios de Administrador no servidor
 
-```bat title="Verify Python is available"
+```bat title="Verifique se o Python está disponível"
 python --version
 ```
 
-## Step 1 — Clone and configure
+## Etapa 1 — Clonar e configurar
 
-```bat title="Clone the repository"
+```bat title="Clone o repositório"
 git clone <repo> C:\PatchOne
 cd C:\PatchOne
 copy server\.env.example server\.env
 ```
 
-Edit `server\.env` and set the following values:
+Edite `server\.env` e defina os seguintes valores:
 
 ```ini title="server/.env" {1,2,3,4}
 SECRET_KEY=<generate: python -c "import secrets; print(secrets.token_hex(32))">
@@ -36,51 +36,51 @@ ADMIN_PASSWORD=<strong-password>
 SERVER_MODE=onprem
 ```
 
-| Setting | Description |
+| Configuração | Descrição |
 |---|---|
-| `SECRET_KEY` | Long random string that secures admin sessions |
-| `ADMIN_USERNAME` | Username for the initial admin account |
-| `ADMIN_PASSWORD` | Strong password for the initial admin account |
-| `SERVER_MODE` | Set to `onprem` |
+| `SECRET_KEY` | String aleatória longa que protege as sessões de administrador |
+| `ADMIN_USERNAME` | Nome de usuário da conta de administrador inicial |
+| `ADMIN_PASSWORD` | Senha forte para a conta de administrador inicial |
+| `SERVER_MODE` | Defina como `onprem` |
 
 :::warning
-Use a strong, randomly generated value for `SECRET_KEY`. Never share it or commit it to version control.
+Use um valor forte e gerado aleatoriamente para `SECRET_KEY`. Nunca o compartilhe ou comite no controle de versão.
 :::
 
-## Step 2 — Run the installer
+## Etapa 2 — Executar o instalador
 
-```bat title="Run as Administrator"
+```bat title="Execute como Administrador"
 deploy\install_server.bat
 ```
 
-The installer sets up the virtual environment, initialises the database, seeds the catalog, creates the admin account, registers the Windows Service, configures the firewall, and starts the server.
+O instalador configura o ambiente virtual, inicializa o banco de dados, popula o catálogo, cria a conta de administrador, registra o Windows Service, configura o firewall e inicia o servidor.
 
-## Step 3 — Verify
+## Etapa 3 — Verificar
 
-Open the dashboard in a browser on your network at `http://<server-ip>` and log in with the credentials you set in Step 1.
+Abra o dashboard em um navegador na sua rede em `http://<server-ip>` e faça login com as credenciais definidas na Etapa 1.
 
-## Service management
+## Gerenciamento do serviço
 
-| Action | Command |
+| Ação | Comando |
 |---|---|
-| Start | `sc start PatchOneServer` |
-| Stop | `sc stop PatchOneServer` |
-| Restart | `sc stop PatchOneServer && sc start PatchOneServer` |
-| Uninstall | `python server\server_service.py remove` |
+| Iniciar | `sc start PatchOneServer` |
+| Parar | `sc stop PatchOneServer` |
+| Reiniciar | `sc stop PatchOneServer && sc start PatchOneServer` |
+| Desinstalar | `python server\server_service.py remove` |
 
-## Log files
+## Arquivos de log
 
-Server logs are written to `server\logs\patchone.log`. The file rotates daily and retains 7 days by default.
+Os logs do servidor são gravados em `server\logs\patchone.log`. O arquivo é rotacionado diariamente e retém 7 dias por padrão.
 
-## Upgrading
+## Atualização
 
-```bat title="Upgrade to latest version"
+```bat title="Atualizar para a versão mais recente"
 git pull
 pip install -r server\requirements.txt
 sc stop PatchOneServer && sc start PatchOneServer
 ```
 
-## Next steps
+## Próximos passos
 
-- [Agent deployment](/docs/installation/agent-deployment) — push agents to client machines
-- [Cloud deployment](/docs/installation/cloud) — Docker-based multi-tenant setup
+- [Implantação de agentes](/docs/installation/agent-deployment) — envie agentes para as máquinas clientes
+- [Implantação cloud](/docs/installation/cloud) — configuração multi-tenant baseada em Docker

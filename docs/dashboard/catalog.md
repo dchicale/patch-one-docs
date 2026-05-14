@@ -1,65 +1,65 @@
 ---
 id: catalog
-title: Software Catalog
+title: Catálogo de Software
 sidebar_position: 5
 ---
 
-# Software Catalog
+# Catálogo de Software
 
-The **Catalog** page manages the list of software titles available for deployment.
+A página **Catálogo** gerencia a lista de títulos de software disponíveis para implantação.
 
-## Pre-loaded titles
+## Títulos pré-carregados
 
-PatchOne ships with 50+ curated software titles. Each entry contains:
+O PatchOne é fornecido com mais de 50 títulos de software curados. Cada entrada contém:
 
-| Field | Description |
+| Campo | Descrição |
 |---|---|
-| **Name** | Display name (e.g., *Google Chrome*) |
-| **Winget ID** | Package identifier used to invoke winget (e.g., `Google.Chrome`) |
-| **Category** | Grouping for filtering (e.g., `browser`, `productivity`, `developer`) |
-| **Publisher** | Software publisher name |
-| **Built-in** | Whether the entry was pre-loaded (cannot be deleted by admins) |
+| **Nome** | Nome de exibição (ex.: *Google Chrome*) |
+| **ID winget** | Identificador do pacote usado para invocar o winget (ex.: `Google.Chrome`) |
+| **Categoria** | Agrupamento para filtragem (ex.: `browser`, `productivity`, `developer`) |
+| **Fabricante** | Nome do fabricante do software |
+| **Nativo** | Se a entrada foi pré-carregada (não pode ser excluída por administradores) |
 
-## Browsing and searching
+## Navegação e pesquisa
 
-The catalog page provides:
-- **Search bar** — filter by name or publisher in real time
-- **Category filter** — show only titles in a selected category
+A página do catálogo oferece:
+- **Barra de pesquisa** — filtrar por nome ou fabricante em tempo real
+- **Filtro por categoria** — exibir apenas títulos de uma categoria selecionada
 
-## Categories
+## Categorias
 
-Pre-loaded categories include:
+As categorias pré-carregadas incluem:
 
-- Browsers
-- Productivity
-- Communication
-- Developer Tools
-- Security
-- Utilities
-- Media
+- Navegadores
+- Produtividade
+- Comunicação
+- Ferramentas de Desenvolvedor
+- Segurança
+- Utilitários
+- Mídia
 
-## Adding a custom entry
+## Adicionando uma entrada personalizada
 
-Click **Add Software** to create a custom catalog entry. Required fields:
+Clique em **Adicionar Software** para criar uma entrada personalizada no catálogo. Campos obrigatórios:
 
-| Field | Notes |
+| Campo | Observações |
 |---|---|
-| **Name** | Display name shown in the deploy dropdown |
-| **Winget ID** | Must match a valid `winget show <id>` package |
-| **Category** | Select from the existing list or type a new one |
+| **Nome** | Nome de exibição mostrado no dropdown de implantação |
+| **ID winget** | Deve corresponder a um pacote válido de `winget show <id>` |
+| **Categoria** | Selecione da lista existente ou digite uma nova |
 
-:::tip Finding winget IDs
-Run `winget search <name>` on any Windows 10+ machine to find the exact package identifier.
+:::tip Encontrando IDs winget
+Execute `winget search <nome>` em qualquer máquina Windows 10+ para encontrar o identificador exato do pacote.
 :::
 
-## Editing a custom entry
+## Editando uma entrada personalizada
 
-Admins can edit only their own custom entries. Built-in entries cannot be edited or deleted.
+Os administradores podem editar apenas suas próprias entradas personalizadas. Entradas nativas não podem ser editadas ou excluídas.
 
-## Deleting a custom entry
+## Excluindo uma entrada personalizada
 
-Soft-delete: the entry is hidden from the deploy dropdown but remains in the audit log and is retained in historical job records.
+Exclusão suave: a entrada é ocultada do dropdown de implantação, mas permanece no log de auditoria e é retida nos registros históricos de jobs.
 
-## Catalog in the deploy workflow
+## O catálogo no fluxo de implantação
 
-The catalog drives the software dropdown in the **Deploy** page. When you select a title, the deploy job uses the stored `winget_id` to invoke `winget upgrade` on the target machine.
+O catálogo alimenta o dropdown de software na página **Implantar**. Quando você seleciona um título, o job de implantação usa o `winget_id` armazenado para invocar `winget upgrade` na máquina alvo.

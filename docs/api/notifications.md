@@ -1,30 +1,30 @@
 ---
 id: notifications
-title: Notifications API
+title: API de Notificações
 sidebar_position: 6
 ---
 
-# Notifications API
+# API de Notificações
 
-Read and dismiss dashboard notifications.
+Leia e dispense notificações do painel.
 
 ## Endpoints
 
-### List notifications
+### Listar notificações
 
 ```
 GET /api/notifications
 ```
 
-**Auth:** Required
+**Auth:** Obrigatória
 
-**Query parameters:**
+**Parâmetros de consulta:**
 
-| Param | Type | Description |
+| Parâmetro | Tipo | Descrição |
 |---|---|---|
-| `unread_only` | boolean | If `true`, return only unread notifications |
+| `unread_only` | boolean | Se `true`, retorna apenas notificações não lidas |
 
-**Response (200):**
+**Resposta (200):**
 
 ```json
 [
@@ -45,28 +45,28 @@ GET /api/notifications
 ]
 ```
 
-**Notification types:**
+**Tipos de notificação:**
 
-| `type` | Description |
+| `type` | Descrição |
 |---|---|
-| `machine_registered` | New machine appeared in the fleet |
-| `machine_offline` | Machine missed its heartbeat window |
-| `job_completed` | Deploy job finished successfully |
-| `job_failed` | Deploy job failed |
-| `updates_available` | Machine reported pending winget updates |
-| `daily_summary` | 8 AM automated fleet health briefing |
+| `machine_registered` | Nova máquina apareceu na frota |
+| `machine_offline` | Máquina perdeu sua janela de heartbeat |
+| `job_completed` | Job de deploy concluído com sucesso |
+| `job_failed` | Job de deploy falhou |
+| `updates_available` | Máquina reportou atualizações winget pendentes |
+| `daily_summary` | Resumo automatizado da saúde da frota às 8h |
 
 ---
 
-### Mark a notification as read
+### Marcar uma notificação como lida
 
 ```
 PATCH /api/notifications/{notification_id}/read
 ```
 
-**Auth:** Required
+**Auth:** Obrigatória
 
-**Response (200):**
+**Resposta (200):**
 
 ```json
 {"id": "notif-uuid", "read": true}
@@ -74,18 +74,18 @@ PATCH /api/notifications/{notification_id}/read
 
 ---
 
-### Mark all notifications as read
+### Marcar todas as notificações como lidas
 
 ```
 PATCH /api/notifications/read-all
 ```
 
-**Auth:** Required
+**Auth:** Obrigatória
 
-**Response (200):**
+**Resposta (200):**
 
 ```json
 {"marked_read": 5}
 ```
 
-Returns the count of notifications that were marked as read.
+Retorna a quantidade de notificações que foram marcadas como lidas.

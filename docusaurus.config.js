@@ -21,7 +21,7 @@ const config = {
   ],
 
   title: 'PatchOne',
-  tagline: 'Windows software update management for Brazilian SMEs',
+  tagline: 'Gerenciamento de atualizações de software Windows para PMEs brasileiras',
   favicon: 'img/favicon.svg',
 
   url: 'https://patch-one.com',
@@ -31,8 +31,12 @@ const config = {
   onBrokenMarkdownLinks: 'warn',
 
   i18n: {
-    defaultLocale: 'en',
-    locales: ['en'],
+    defaultLocale: 'pt-BR',
+    locales: ['pt-BR', 'en'],
+    localeConfigs: {
+      'pt-BR': {label: 'Português (BR)', direction: 'ltr'},
+      en: {label: 'English', direction: 'ltr'},
+    },
   },
 
   presets: [
@@ -69,7 +73,7 @@ const config = {
             type: 'docSidebar',
             sidebarId: 'mainSidebar',
             position: 'left',
-            label: 'Documentation',
+            label: 'Documentação',
           },
           {
             to: '/docs/api/overview',
@@ -78,8 +82,12 @@ const config = {
           },
           {
             to: '/docs/architecture/overview',
-            label: 'Architecture',
+            label: 'Arquitetura',
             position: 'left',
+          },
+          {
+            type: 'localeDropdown',
+            position: 'right',
           },
         ],
       },
@@ -87,31 +95,31 @@ const config = {
         style: 'dark',
         links: [
           {
-            title: 'Docs',
+            title: 'Documentação',
             items: [
-              {label: 'Quick Start', to: '/docs/getting-started/quickstart'},
-              {label: 'On-Premises Install', to: '/docs/installation/on-premises'},
-              {label: 'Cloud Install', to: '/docs/installation/cloud'},
-              {label: 'Agent Deployment', to: '/docs/installation/agent-deployment'},
+              {label: 'Início Rápido', to: '/docs/getting-started/quickstart'},
+              {label: 'Instalação On-Premises', to: '/docs/installation/on-premises'},
+              {label: 'Instalação Cloud', to: '/docs/installation/cloud'},
+              {label: 'Deploy do Agente', to: '/docs/installation/agent-deployment'},
             ],
           },
           {
-            title: 'Reference',
+            title: 'Referência',
             items: [
-              {label: 'API Reference', to: '/docs/api/overview'},
-              {label: 'Agent Configuration', to: '/docs/agent/configuration'},
-              {label: 'Data Model', to: '/docs/architecture/data-model'},
+              {label: 'Referência da API', to: '/docs/api/overview'},
+              {label: 'Configuração do Agente', to: '/docs/agent/configuration'},
+              {label: 'Armazenamento de Dados', to: '/docs/architecture/data-model'},
             ],
           },
           {
-            title: 'Security',
+            title: 'Segurança',
             items: [
               {label: 'GravityZone / AV', to: '/docs/security/gravityzone'},
-              {label: 'Access Control', to: '/docs/security/access-control'},
+              {label: 'Controle de Acesso', to: '/docs/security/access-control'},
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} <a href="https://www.securisoft.com.br" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline;text-underline-offset:3px">Securisoft</a>. PatchOne is a Securisoft product.`,
+        copyright: `Copyright © ${new Date().getFullYear()} <a href="https://www.securisoft.com.br" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline;text-underline-offset:3px">Securisoft</a>. PatchOne é um produto Securisoft.`,
       },
       prism: {
         theme: prismThemes.github,

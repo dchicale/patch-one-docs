@@ -1,48 +1,48 @@
 ---
 id: deploy
-title: Software Deployment
+title: Implantação de Software
 sidebar_position: 3
 ---
 
-# Software Deployment
+# Implantação de Software
 
-The **Deploy** page lets you push software updates to one machine or the entire fleet.
+A página **Implantar** permite enviar atualizações de software para uma máquina ou para toda a frota.
 
-## Deploy form
+## Formulário de implantação
 
-1. **Select machines** — pick one or more machines from the list. Use the **Select All** toggle for a fleet-wide push.
-2. **Select software** — choose a title from the catalog dropdown. You can search by name or browse by category.
-3. **Click Deploy** — jobs are queued immediately.
+1. **Selecionar máquinas** — escolha uma ou mais máquinas da lista. Use o botão **Selecionar Todas** para uma implantação em toda a frota.
+2. **Selecionar software** — escolha um título no dropdown do catálogo. Você pode pesquisar por nome ou navegar por categoria.
+3. **Clicar em Implantar** — os jobs são enfileirados imediatamente.
 
-## How deployment works
+## Como funciona a implantação
 
-1. The dashboard calls `POST /api/deploy` with the selected machine IDs and catalog item ID.
-2. The server creates a `deploy_job` row in state `queued` for each machine.
-3. On the next heartbeat, each agent picks up its pending jobs.
-4. The agent runs `winget upgrade --silent --scope machine <winget-id>`.
-5. The agent reports the result back via `POST /api/agent/jobs/{id}/done`.
-6. The job transitions to `completed` or `failed`.
+1. O dashboard chama `POST /api/deploy` com os IDs das máquinas selecionadas e o ID do item do catálogo.
+2. O servidor cria uma linha `deploy_job` no estado `queued` para cada máquina.
+3. No próximo heartbeat, cada agente busca seus jobs pendentes.
+4. O agente executa `winget upgrade --silent --scope machine <winget-id>`.
+5. O agente reporta o resultado via `POST /api/agent/jobs/{id}/done`.
+6. O job passa para `completed` ou `failed`.
 
-## Silent installation
+## Instalação silenciosa
 
-All deployments use `winget upgrade --silent --scope machine`. This means:
-- No UAC prompt
-- No installer UI
-- No restart request (unless the package explicitly requires it)
-- The install runs in the background while the user works normally
+Todas as implantações usam `winget upgrade --silent --scope machine`. Isso significa:
+- Sem prompt UAC
+- Sem interface do instalador
+- Sem solicitação de reinicialização (a menos que o pacote exija explicitamente)
+- A instalação é executada em segundo plano enquanto o usuário trabalha normalmente
 
-## Batch deploy
+## Implantação em lote
 
-When you deploy to multiple machines, all jobs share a `batch_id`. The **Jobs** page groups them by batch so you can track fleet-wide progress at a glance.
+Quando você implanta para múltiplas máquinas, todos os jobs compartilham um `batch_id`. A página **Jobs** os agrupa por lote para que você possa acompanhar o progresso em toda a frota de uma só vez.
 
-## Duplicate protection
+## Proteção contra duplicatas
 
-If you try to queue the same software for a machine that already has a `queued` or `in_progress` job for that title, the server returns HTTP 409 and skips the duplicate. This prevents double-deploy races.
+Se você tentar enfileirar o mesmo software para uma máquina que já tem um job `queued` ou `in_progress` para aquele título, o servidor retorna HTTP 409 e ignora a duplicata. Isso evita corridas de implantação duplicada.
 
-## Deploy from machine detail
+## Implantar a partir dos detalhes da máquina
 
-You can also initiate a deploy from the **Machine Detail** page. The target machine is pre-selected. Useful when you want to push a specific update to a single machine without navigating to the Deploy page.
+Você também pode iniciar uma implantação a partir da página **Detalhes da Máquina**. A máquina alvo já vem pré-selecionada. Útil quando você quer enviar uma atualização específica para uma única máquina sem navegar até a página Implantar.
 
-## Catalog
+## Catálogo
 
-The software catalog contains 50+ pre-loaded titles across categories (browsers, productivity, developer tools, etc.). You can also add custom entries. See [Software Catalog](/docs/dashboard/catalog).
+O catálogo de software contém mais de 50 títulos pré-carregados em diversas categorias (navegadores, produtividade, ferramentas de desenvolvedor, etc.). Você também pode adicionar entradas personalizadas. Consulte [Catálogo de Software](/docs/dashboard/catalog).

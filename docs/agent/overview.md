@@ -1,40 +1,40 @@
 ---
 id: overview
-title: How the Agent Works
+title: Como o Agente Funciona
 sidebar_position: 1
 ---
 
-# How the Agent Works
+# Como o Agente Funciona
 
-`PatchPilotAgent.exe` is a self-contained Windows binary that runs as a Windows Service. It operates on a **pull model**: the agent always initiates connections to the server. No inbound ports are needed on client machines.
+`PatchPilotAgent.exe` é um binário Windows autossuficiente que roda como um Windows Service. Ele opera em um **modelo de pull**: o agente sempre inicia as conexões com o servidor. Nenhuma porta de entrada é necessária nas máquinas clientes.
 
-## What the agent does
+## O que o agente faz
 
-On each check-in cycle, the agent:
+Em cada ciclo de check-in, o agente:
 
-1. Reads the machine's installed software inventory
-2. Detects which installed applications have pending updates available
-3. Sends a heartbeat to the server with this information
-4. Checks whether the server has queued any update jobs for this machine
-5. Runs any queued update jobs silently in the background
-6. Reports the result back to the server
+1. Lê o inventário de software instalado na máquina
+2. Detecta quais aplicações instaladas possuem atualizações pendentes disponíveis
+3. Envia um heartbeat ao servidor com essas informações
+4. Verifica se o servidor possui algum job de atualização enfileirado para esta máquina
+5. Executa os jobs de atualização enfileirados silenciosamente em segundo plano
+6. Reporta o resultado de volta ao servidor
 
-End users are not interrupted. Updates install silently with no prompts.
+Os usuários finais não são interrompidos. As atualizações são instaladas silenciosamente, sem prompts.
 
-## Machine identification
+## Identificação da máquina
 
-Each machine is identified by a stable hardware identifier that persists across hostname changes and typical hardware configurations. This identifier is used to track the machine across check-ins and in the audit log.
+Cada máquina é identificada por um identificador de hardware estável que persiste entre mudanças de hostname e configurações típicas de hardware. Esse identificador é usado para rastrear a máquina entre os check-ins e no log de auditoria.
 
-## Pull model rationale
+## Justificativa do modelo de pull
 
-Because the agent always connects outbound to the server:
+Como o agente sempre se conecta de forma de saída ao servidor:
 
-- No inbound firewall rules are needed on client machines
-- The setup works behind NAT and corporate proxies
-- The server cannot initiate arbitrary commands on client machines
+- Nenhuma regra de firewall de entrada é necessária nas máquinas clientes
+- A configuração funciona atrás de NAT e proxies corporativos
+- O servidor não pode iniciar comandos arbitrários nas máquinas clientes
 
-## GravityZone compatibility
+## Compatibilidade com GravityZone
 
-The agent uses Windows-native APIs and the system package manager. It does not open listening ports or inject into other processes.
+O agente usa APIs nativas do Windows e o gerenciador de pacotes do sistema. Ele não abre portas de escuta nem injeta em outros processos.
 
-See [GravityZone coexistence](/docs/security/gravityzone) for AV exclusion setup.
+Consulte [Coexistência com GravityZone](/docs/security/gravityzone) para a configuração de exclusões de AV.

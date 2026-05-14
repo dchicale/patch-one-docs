@@ -1,29 +1,29 @@
 ---
 id: data-model
-title: Data Storage
+title: Armazenamento de Dados
 sidebar_position: 2
 ---
 
-# Data Storage
+# Armazenamento de Dados
 
-PatchOne stores data in a relational database. The on-premises deployment uses a local SQLite file; the cloud deployment uses PostgreSQL with persistent volumes.
+O PatchOne armazena dados em um banco de dados relacional. A implantação on-premises utiliza um arquivo SQLite local; a implantação em nuvem utiliza PostgreSQL com volumes persistentes.
 
-## What PatchOne stores
+## O que o PatchOne armazena
 
-| Category | Description |
+| Categoria | Descrição |
 |---|---|
-| **Machine inventory** | Hostname, OS version, agent version, online/offline status, installed software list |
-| **Software history** | Append-only log of software installs, updates, and removals per machine |
-| **Update catalog** | Curated list of software titles available for deployment |
-| **Deploy jobs** | Queued, in-progress, and completed deployment records per machine |
-| **Audit log** | Immutable record of every admin action (login, deploy, config change) |
-| **Notifications** | Fleet-health alerts and deployment status updates |
-| **Backups** | Metadata for scheduled and manual database backup archives |
+| **Inventário de máquinas** | Hostname, versão do SO, versão do agente, status online/offline, lista de software instalado |
+| **Histórico de software** | Log append-only de instalações, atualizações e remoções de software por máquina |
+| **Catálogo de atualizações** | Lista curada de títulos de software disponíveis para implantação |
+| **Jobs de deploy** | Registros de implantação enfileirados, em andamento e concluídos por máquina |
+| **Log de auditoria** | Registro imutável de cada ação administrativa (login, deploy, alteração de configuração) |
+| **Notificações** | Alertas de saúde da frota e atualizações de status de implantação |
+| **Backups** | Metadados de arquivos de backup do banco de dados agendados e manuais |
 
-## Retention and backup
+## Retenção e backup
 
-- **Audit log**: never modified or deleted after creation
-- **Software history**: append-only; past states are always preserved
-- **Backups**: retained for a configurable number of days (default: 7); older archives are removed automatically
+- **Log de auditoria**: nunca modificado ou excluído após a criação
+- **Histórico de software**: append-only; os estados anteriores são sempre preservados
+- **Backups**: retidos por um número configurável de dias (padrão: 7); arquivos mais antigos são removidos automaticamente
 
-See [Backup](/docs/dashboard/backup) for how to download or trigger backups from the dashboard.
+Consulte [Backup](/docs/dashboard/backup) para saber como baixar ou acionar backups pelo painel.

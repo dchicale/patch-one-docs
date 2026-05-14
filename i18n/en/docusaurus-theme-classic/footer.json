@@ -1,0 +1,50 @@
+{
+  "link.item.label.Início Rápido": {
+    "message": "Quick Start",
+    "description": "Footer link label"
+  },
+  "link.item.label.Instalação On-Premises": {
+    "message": "On-Premises Install",
+    "description": "Footer link label"
+  },
+  "link.item.label.Instalação Cloud": {
+    "message": "Cloud Install",
+    "description": "Footer link label"
+  },
+  "link.item.label.Deploy do Agente": {
+    "message": "Agent Deployment",
+    "description": "Footer link label"
+  },
+  "link.item.label.Referência da API": {
+    "message": "API Reference",
+    "description": "Footer link label"
+  },
+  "link.item.label.Configuração do Agente": {
+    "message": "Agent Configuration",
+    "description": "Footer link label"
+  },
+  "link.item.label.Armazenamento de Dados": {
+    "message": "Data Storage",
+    "description": "Footer link label"
+  },
+  "link.item.label.GravityZone / AV": {
+    "message": "GravityZone / AV",
+    "description": "Footer link label"
+  },
+  "link.item.label.Controle de Acesso": {
+    "message": "Access Control",
+    "description": "Footer link label"
+  },
+  "link.title.Documentação": {
+    "message": "Documentation",
+    "description": "Footer column title"
+  },
+  "link.title.Referência": {
+    "message": "Reference",
+    "description": "Footer column title"
+  },
+  "link.title.Segurança": {
+    "message": "Security",
+    "description": "Footer column title"
+  }
+}

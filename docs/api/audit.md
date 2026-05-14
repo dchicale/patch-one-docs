@@ -1,35 +1,35 @@
 ---
 id: audit
-title: Audit API
+title: API de Auditoria
 sidebar_position: 7
 ---
 
-# Audit API
+# API de Auditoria
 
-Read the immutable audit log. No write or delete operations are available.
+Leia o log de auditoria imutável. Nenhuma operação de escrita ou exclusão está disponível.
 
 ## Endpoints
 
-### List audit entries
+### Listar entradas de auditoria
 
 ```
 GET /api/audit
 ```
 
-**Auth:** Required
+**Auth:** Obrigatória
 
-**Query parameters:**
+**Parâmetros de consulta:**
 
-| Param | Type | Description |
+| Parâmetro | Tipo | Descrição |
 |---|---|---|
-| `event_type` | string | Filter by event type (e.g., `deploy_queued`) |
-| `from` | ISO 8601 date | Start of date range (inclusive) |
-| `to` | ISO 8601 date | End of date range (inclusive) |
-| `actor` | string | Filter by admin username |
-| `limit` | integer | Max records to return (default: 100, max: 1000) |
-| `offset` | integer | Pagination offset |
+| `event_type` | string | Filtrar por tipo de evento (ex.: `deploy_queued`) |
+| `from` | data ISO 8601 | Início do intervalo de datas (inclusivo) |
+| `to` | data ISO 8601 | Fim do intervalo de datas (inclusivo) |
+| `actor` | string | Filtrar por nome de usuário do administrador |
+| `limit` | integer | Máximo de registros a retornar (padrão: 100, máximo: 1000) |
+| `offset` | integer | Deslocamento para paginação |
 
-**Response (200):**
+**Resposta (200):**
 
 ```json
 [
@@ -49,30 +49,30 @@ GET /api/audit
 ]
 ```
 
-**Event types:** See [Audit Log](/docs/dashboard/audit#what-is-logged) for the full list.
+**Tipos de evento:** Consulte o [Log de Auditoria](/docs/dashboard/audit#what-is-logged) para a lista completa.
 
 ---
 
-### Export audit log as CSV
+### Exportar log de auditoria como CSV
 
 ```
 GET /api/audit/export.csv
 ```
 
-**Auth:** Required
+**Auth:** Obrigatória
 
-**Query parameters:** Same as the list endpoint (date range, event type, actor). The export respects current filters.
+**Parâmetros de consulta:** Mesmos do endpoint de listagem (intervalo de datas, tipo de evento, ator). A exportação respeita os filtros atuais.
 
-**Response:** `Content-Type: text/csv` file download.
+**Resposta:** Download de arquivo com `Content-Type: text/csv`.
 
-CSV columns:
+Colunas do CSV:
 
 ```
 timestamp,event_type,actor,target,detail,ip_address
 ```
 
-The `detail` column is serialised as a JSON string within the CSV cell.
+A coluna `detail` é serializada como uma string JSON dentro da célula do CSV.
 
-## Tamper protection
+## Proteção contra adulteração
 
-The audit API provides no `POST`, `PUT`, `PATCH`, or `DELETE` operations. Audit entries are append-only at the database level. In on-premises mode, apply OS-level file permissions to the database directory to prevent direct modification.
+A API de auditoria não oferece operações `POST`, `PUT`, `PATCH` ou `DELETE`. As entradas de auditoria são append-only no nível do banco de dados. No modo on-premises, aplique permissões de arquivo no nível do sistema operacional ao diretório do banco de dados para evitar modificações diretas.

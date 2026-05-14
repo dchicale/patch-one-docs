@@ -1,56 +1,56 @@
 ---
 id: access-control
-title: Access Control
+title: Controle de Acesso
 sidebar_position: 2
 ---
 
-# Access Control
+# Controle de Acesso
 
-## Authentication
+## Autenticação
 
-PatchOne uses two separate authentication mechanisms:
+O PatchOne utiliza dois mecanismos de autenticação distintos:
 
-| Actor | Mechanism |
+| Ator | Mecanismo |
 |---|---|
-| Admin (dashboard) | Session cookie, set at login and cleared at logout |
-| Agent (Windows Service) | Shared API key configured during deployment |
+| Administrador (painel) | Cookie de sessão, definido no login e limpo no logout |
+| Agente (Windows Service) | Chave de API compartilhada configurada durante a implantação |
 
-Admin sessions expire automatically after a period of inactivity (default: 8 hours). After expiry, the browser redirects to the login page.
+As sessões de administrador expiram automaticamente após um período de inatividade (padrão: 8 horas). Após a expiração, o navegador redireciona para a página de login.
 
-## Password storage
+## Armazenamento de senhas
 
-Admin passwords are stored using a strong one-way hash. Plaintext passwords are never stored. The initial admin password is set during server installation.
+As senhas de administrador são armazenadas usando um hash unidirecional forte. Senhas em texto simples nunca são armazenadas. A senha inicial de administrador é definida durante a instalação do servidor.
 
-## Brute-force protection
+## Proteção contra força bruta
 
-Login attempts are rate-limited per IP address. Repeated failures result in a temporary lockout to prevent automated attacks.
+As tentativas de login são limitadas por taxa por endereço IP. Falhas repetidas resultam em bloqueio temporário para evitar ataques automatizados.
 
-## API key security
+## Segurança da chave de API
 
-The API key shared between the server and agents should be treated as a secret:
+A chave de API compartilhada entre o servidor e os agentes deve ser tratada como um segredo:
 
-- Store it only in the agent configuration file and the server configuration
-- Restrict file permissions so only the service account can read it
-- Rotate the key if an agent machine is decommissioned or believed to be compromised
+- Armazene-a apenas no arquivo de configuração do agente e na configuração do servidor
+- Restrinja as permissões do arquivo para que apenas a conta de serviço possa lê-lo
+- Faça a rotação da chave se uma máquina agente for descomissionada ou se houver suspeita de comprometimento
 
-## Tenant isolation (cloud mode)
+## Isolamento de locatários (modo nuvem)
 
-In cloud mode, each admin's session is bound to their organisation. It is not possible to access another organisation's data with your credentials, regardless of what is in the request.
+No modo nuvem, a sessão de cada administrador está vinculada à sua organização. Não é possível acessar dados de outra organização com suas credenciais, independentemente do conteúdo da requisição.
 
-## Audit trail
+## Trilha de auditoria
 
-Every authentication event is logged immutably:
+Cada evento de autenticação é registrado de forma imutável:
 
-| Event | When |
+| Evento | Quando |
 |---|---|
-| Successful login | Admin signs in |
-| Failed login attempt | Wrong credentials (source IP recorded) |
-| Logout | Admin signs out |
+| Login bem-sucedido | Administrador faz login |
+| Tentativa de login falha | Credenciais incorretas (IP de origem registrado) |
+| Logout | Administrador faz logout |
 
-## Recommendations for production
+## Recomendações para produção
 
-- Use a long, randomly generated secret key for signing sessions
-- Use HTTPS/TLS — mandatory for cloud, strongly recommended for on-premises
-- Rotate the agent API key when decommissioning machines
-- Restrict network access to the PatchOne server to trusted subnets
-- Apply minimum-privilege file permissions to server and agent configuration files
+- Use uma chave secreta longa e gerada aleatoriamente para assinar as sessões
+- Use HTTPS/TLS — obrigatório para nuvem, fortemente recomendado para on-premises
+- Faça a rotação da chave de API do agente ao descomissionar máquinas
+- Restrinja o acesso de rede ao servidor PatchOne a sub-redes confiáveis
+- Aplique permissões de arquivo com privilégio mínimo nos arquivos de configuração do servidor e do agente

@@ -1,49 +1,49 @@
 ---
 id: intro
-title: Introduction
+title: Introdução
 sidebar_position: 1
 ---
 
 # PatchOne
 
-**PatchOne** is a Windows software update management platform built for Brazilian SMEs with 10–500 machines per organisation. It gives IT administrators a single console to detect, deploy, and audit software updates across their entire fleet — with no per-machine cost and no manual enrollment.
+**PatchOne** é uma plataforma de gerenciamento de atualizações de software para Windows, desenvolvida para PMEs brasileiras com 10 a 500 máquinas por organização. Ela oferece aos administradores de TI um único console para detectar, implantar e auditar atualizações de software em toda a frota — sem custo por máquina e sem cadastro manual.
 
-## What problem it solves
+## Qual problema resolve
 
-Managing software updates across a Windows fleet is painful without enterprise tools like WSUS or Intune. PatchOne fills that gap: it targets the Brazilian SME market where Microsoft 365 licences are common but Intune is not, and where GravityZone (Bitdefender) is the dominant endpoint security tool.
+Gerenciar atualizações de software em uma frota Windows é trabalhoso sem ferramentas empresariais como WSUS ou Intune. PatchOne preenche essa lacuna: foca no mercado de PMEs brasileiras onde licenças Microsoft 365 são comuns, mas Intune não é, e onde GravityZone (Bitdefender) é a principal ferramenta de segurança de endpoints.
 
-## Key capabilities
+## Principais capacidades
 
-| Capability | Detail |
+| Capacidade | Detalhe |
 |---|---|
-| **Auto-discovery** | Agents self-register on first check-in — no manual roster |
-| **Live inventory** | Installed software per machine, refreshed automatically |
-| **Update detection** | Pending updates surfaced as dashboard badges |
-| **One-click deploy** | Push any catalog title to one machine or the entire fleet |
-| **Silent install** | Updates install silently — zero end-user interruption |
-| **Tamper-proof audit** | Every deploy, login, and config change logged immutably |
-| **Offline alerting** | Dashboard notification when a machine stops checking in |
-| **Daily briefing** | Fleet-health snapshot pushed to the dashboard each morning |
-| **Agent self-update** | Agent updates itself when the server publishes a new version |
-| **Multi-tenant** | Cloud mode isolates each client organisation's data |
-| **Database backup** | Scheduled daily backups plus manual trigger from the dashboard |
+| **Autodescoberta** | Agentes se registram automaticamente no primeiro check-in — sem cadastro manual |
+| **Inventário em tempo real** | Software instalado por máquina, atualizado automaticamente |
+| **Detecção de atualizações** | Atualizações pendentes exibidas como badges no dashboard |
+| **Implantação com um clique** | Envie qualquer título do catálogo para uma máquina ou para toda a frota |
+| **Instalação silenciosa** | Atualizações instaladas silenciosamente — zero interrupção ao usuário final |
+| **Auditoria inviolável** | Cada implantação, login e alteração de configuração registrados de forma imutável |
+| **Alerta de offline** | Notificação no dashboard quando uma máquina para de fazer check-in |
+| **Resumo diário** | Snapshot da saúde da frota enviado ao dashboard todas as manhãs |
+| **Atualização automática do agente** | O agente se atualiza quando o servidor publica uma nova versão |
+| **Multi-tenant** | Modo cloud isola os dados de cada organização cliente |
+| **Backup do banco de dados** | Backups diários agendados mais gatilho manual pelo dashboard |
 
-## Who it is for
+## Para quem é
 
-- **IT administrators** at Brazilian SMEs managing 10–500 Windows machines
-- **MSPs** bundling PatchOne with GravityZone licences
-- **On-prem admins** who need patch management without cloud dependency
+- **Administradores de TI** em PMEs brasileiras gerenciando 10 a 500 máquinas Windows
+- **MSPs** que incluem PatchOne junto com licenças GravityZone
+- **Administradores on-premises** que precisam de gerenciamento de patches sem dependência de nuvem
 
-## Deployment modes
+## Modos de implantação
 
-| Mode | Description | Setup |
+| Modo | Descrição | Configuração |
 |---|---|---|
-| **On-premises** | Single Windows Server, no internet required | `install_server.bat` |
-| **Cloud / SaaS** | Docker-based, TLS, multi-tenant | `docker compose up` |
+| **On-premises** | Único Windows Server, sem necessidade de internet | `install_server.bat` |
+| **Cloud / SaaS** | Baseado em Docker, TLS terminado, isolamento multi-tenant | `docker compose up` |
 
-## Next steps
+## Próximos passos
 
-- [Quick Start](/docs/getting-started/quickstart) — get running in 5 minutes
-- [System Requirements](/docs/getting-started/requirements) — hardware and software prerequisites
-- [On-Premises Installation](/docs/installation/on-premises) — full on-prem setup guide
-- [Cloud Installation](/docs/installation/cloud) — Docker + TLS production setup
+- [Início Rápido](/docs/getting-started/quickstart) — coloque em funcionamento em 5 minutos
+- [Requisitos do Sistema](/docs/getting-started/requirements) — pré-requisitos de hardware e software
+- [Instalação On-Premises](/docs/installation/on-premises) — guia completo de configuração on-prem
+- [Instalação Cloud](/docs/installation/cloud) — configuração de produção com Docker + TLS

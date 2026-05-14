@@ -1,29 +1,29 @@
 ---
 id: overview
-title: API Overview
+title: Visão Geral da API
 sidebar_position: 1
 ---
 
-# API Overview
+# Visão Geral da API
 
-PatchOne exposes a REST API at the same base URL as the dashboard. You can use it to automate fleet management tasks, integrate with monitoring systems, or build custom tooling.
+O PatchOne expõe uma API REST na mesma URL base do painel. Você pode utilizá-la para automatizar tarefas de gerenciamento de frota, integrar com sistemas de monitoramento ou desenvolver ferramentas personalizadas.
 
-## Base URL
+## URL base
 
-| Deployment | Base URL |
+| Implantação | URL base |
 |---|---|
 | On-premises | `http://<server-address>` |
-| Cloud | `https://<your-domain>` |
+| Nuvem | `https://<your-domain>` |
 
-## Authentication
+## Autenticação
 
-All API requests require a valid admin session. Authenticate first via the login endpoint, then include the session cookie in subsequent requests.
+Todas as requisições à API exigem uma sessão de administrador válida. Autentique-se primeiro pelo endpoint de login e, em seguida, inclua o cookie de sessão nas requisições subsequentes.
 
-See [Authentication](/docs/api/authentication) for details.
+Consulte [Autenticação](/docs/api/authentication) para mais detalhes.
 
-## Response format
+## Formato de resposta
 
-All endpoints return JSON. Errors use a consistent shape:
+Todos os endpoints retornam JSON. Os erros utilizam um formato consistente:
 
 ```json
 {
@@ -31,38 +31,38 @@ All endpoints return JSON. Errors use a consistent shape:
 }
 ```
 
-## HTTP status codes
+## Códigos de status HTTP
 
-| Code | Meaning |
+| Código | Significado |
 |---|---|
-| 200 | Success |
-| 201 | Created |
-| 204 | No content |
-| 400 | Bad request |
-| 401 | Not authenticated |
-| 403 | Forbidden |
-| 404 | Not found |
-| 409 | Conflict |
-| 422 | Validation error |
-| 429 | Rate limited |
-| 500 | Server error |
+| 200 | Sucesso |
+| 201 | Criado |
+| 204 | Sem conteúdo |
+| 400 | Requisição inválida |
+| 401 | Não autenticado |
+| 403 | Proibido |
+| 404 | Não encontrado |
+| 409 | Conflito |
+| 422 | Erro de validação |
+| 429 | Limite de requisições atingido |
+| 500 | Erro no servidor |
 
-## Available API sections
+## Seções disponíveis da API
 
-| Section | Purpose |
+| Seção | Finalidade |
 |---|---|
-| [Authentication](/docs/api/authentication) | Login, logout, session management |
-| [Machines](/docs/api/machines) | Fleet inventory and machine management |
-| [Deploy](/docs/api/deploy) | Queue and monitor update deployments |
-| [Catalog](/docs/api/catalog) | Manage the software catalog |
-| [Notifications](/docs/api/notifications) | Read and dismiss notifications |
-| [Audit](/docs/api/audit) | Query the immutable audit log |
-| [Backup](/docs/api/backup) | Trigger and download database backups |
+| [Autenticação](/docs/api/authentication) | Login, logout, gerenciamento de sessão |
+| [Máquinas](/docs/api/machines) | Inventário de frota e gerenciamento de máquinas |
+| [Deploy](/docs/api/deploy) | Enfileirar e monitorar implantações de atualizações |
+| [Catálogo](/docs/api/catalog) | Gerenciar o catálogo de software |
+| [Notificações](/docs/api/notifications) | Ler e dispensar notificações |
+| [Auditoria](/docs/api/audit) | Consultar o log de auditoria imutável |
+| [Backup](/docs/api/backup) | Acionar e baixar backups do banco de dados |
 
-## Rate limiting
+## Limitação de requisições
 
-Login attempts are rate-limited. Repeated failures from the same source result in a temporary lockout.
+Tentativas de login são limitadas por taxa. Falhas repetidas a partir da mesma origem resultam em bloqueio temporário.
 
 ## Multi-tenancy
 
-In cloud mode, every request is automatically scoped to your organisation. You cannot access another organisation's data regardless of the request.
+No modo nuvem, cada requisição é automaticamente vinculada à sua organização. Não é possível acessar dados de outra organização, independentemente do conteúdo da requisição.

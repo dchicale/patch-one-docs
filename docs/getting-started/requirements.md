@@ -1,78 +1,78 @@
 ---
 id: requirements
-title: System Requirements
+title: Requisitos do Sistema
 sidebar_position: 2
 ---
 
-# System Requirements
+# Requisitos do Sistema
 
-## Server
+## Servidor
 
-### On-premises mode
+### Modo on-premises
 
-| Component | Minimum | Recommended |
+| Componente | Mínimo | Recomendado |
 |---|---|---|
-| **OS** | Windows Server 2019 | Windows Server 2022 |
+| **SO** | Windows Server 2019 | Windows Server 2022 |
 | **CPU** | 2 vCPU | 4 vCPU |
 | **RAM** | 2 GB | 4 GB |
-| **Disk** | 10 GB | 50 GB (for backups + growth) |
-| **Python** | 3.11 | 3.11 or 3.12 |
-| **Network** | Port 8000 accessible from agent machines | — |
+| **Disco** | 10 GB | 50 GB (para backups + crescimento) |
+| **Python** | 3.11 | 3.11 ou 3.12 |
+| **Rede** | Porta 8000 acessível pelas máquinas dos agentes | — |
 
-### Cloud mode
+### Modo cloud
 
-| Component | Minimum |
+| Componente | Mínimo |
 |---|---|
 | **Docker** | 24.x |
 | **Docker Compose** | v2.x |
 | **RAM** | 2 GB |
-| **Disk** | 20 GB |
-| **Ports** | 80, 443 (nginx terminates TLS) |
-| **PostgreSQL** | 15+ (managed by Docker Compose) |
+| **Disco** | 20 GB |
+| **Portas** | 80, 443 (nginx encerra TLS) |
+| **PostgreSQL** | 15+ (gerenciado pelo Docker Compose) |
 
-## Agent (Windows clients)
+## Agente (clientes Windows)
 
-| Component | Requirement |
+| Componente | Requisito |
 |---|---|
-| **OS** | Windows 10 1903+ or Windows 11 |
-| **winget** | 1.x (pre-installed on Windows 11; available via App Installer on Windows 10) |
-| **Network** | Outbound HTTP to server on port 8000 (no inbound rules required) |
-| **Privileges** | Run as LocalSystem (Windows Service) for machine-scope installs |
-| **Disk** | ~30 MB for the agent binary |
-| **Python runtime** | Not required — `PatchPilotAgent.exe` is a self-contained binary |
+| **SO** | Windows 10 1903+ ou Windows 11 |
+| **winget** | 1.x (pré-instalado no Windows 11; disponível via App Installer no Windows 10) |
+| **Rede** | HTTP de saída para o servidor na porta 8000 (nenhuma regra de entrada necessária) |
+| **Privilégios** | Executar como LocalSystem (Windows Service) para instalações no escopo da máquina |
+| **Disco** | ~30 MB para o binário do agente |
+| **Runtime Python** | Não necessário — `PatchPilotAgent.exe` é um binário autocontido |
 
-:::note winget on Windows 10
-winget ships with Windows 10 1903+ via the [App Installer](https://apps.microsoft.com/store/detail/app-installer/9NBLGGH4NNS1) package. Verify with `winget --version` before deploying agents.
+:::note winget no Windows 10
+O winget acompanha o Windows 10 1903+ via o pacote [App Installer](https://apps.microsoft.com/store/detail/app-installer/9NBLGGH4NNS1). Verifique com `winget --version` antes de implantar os agentes.
 :::
 
-## Dashboard (browser)
+## Dashboard (navegador)
 
-The dashboard is served by the PatchOne server as a static React SPA. Any modern browser works:
+O dashboard é servido pelo servidor PatchOne como uma SPA React estática. Qualquer navegador moderno funciona:
 
-| Browser | Minimum version |
+| Navegador | Versão mínima |
 |---|---|
 | Chrome / Edge | 90+ |
 | Firefox | 88+ |
 | Safari | 14+ |
 
-No plugins or extensions required.
+Nenhum plugin ou extensão é necessário.
 
-## Network requirements
+## Requisitos de rede
 
-| Flow | Direction | Protocol | Port |
+| Fluxo | Direção | Protocolo | Porta |
 |---|---|---|---|
-| Agent → Server | Outbound from agent | HTTP(S) | 8000 (on-prem) / 443 (cloud) |
-| Browser → Server | Outbound from admin workstation | HTTP(S) | 8000 (on-prem) / 443 (cloud) |
-| Server → Agent | **None** | — | — |
+| Agente → Servidor | Saída do agente | HTTP(S) | 8000 (on-prem) / 443 (cloud) |
+| Navegador → Servidor | Saída da estação do administrador | HTTP(S) | 8000 (on-prem) / 443 (cloud) |
+| Servidor → Agente | **Nenhuma** | — | — |
 
-The pull model means the server never initiates connections to agents. No inbound firewall rules are required on client machines.
+O modelo pull significa que o servidor nunca inicia conexões com os agentes. Nenhuma regra de firewall de entrada é necessária nas máquinas clientes.
 
-## Antivirus considerations
+## Considerações sobre antivírus
 
-If using Bitdefender GravityZone, register AV exclusions before deploying agents:
+Se estiver usando Bitdefender GravityZone, registre as exclusões de AV antes de implantar os agentes:
 
 ```powershell
 deploy\register_av_exclusion.ps1
 ```
 
-See the [GravityZone coexistence guide](/docs/security/gravityzone) for details.
+Consulte o [guia de coexistência com GravityZone](/docs/security/gravityzone) para mais detalhes.

@@ -1,21 +1,21 @@
 ---
 id: cloud
-title: Cloud / Docker Installation
+title: Instalação Cloud / Docker
 sidebar_position: 2
 ---
 
-# Cloud / Docker Installation
+# Instalação Cloud / Docker
 
-The cloud mode uses Docker Compose with a PostgreSQL database and TLS termination. It supports multiple client organisations, each with fully isolated data.
+O modo cloud usa Docker Compose com um banco de dados PostgreSQL e encerramento TLS. Suporta múltiplas organizações clientes, cada uma com dados totalmente isolados.
 
-## Prerequisites
+## Pré-requisitos
 
 - Docker Engine 24.x
 - Docker Compose v2.x
-- A domain name pointing to the server
-- TLS certificate and private key (Let's Encrypt / Certbot recommended)
+- Um nome de domínio apontando para o servidor
+- Certificado TLS e chave privada (Let's Encrypt / Certbot recomendado)
 
-## Step 1 — Clone and configure
+## Etapa 1 — Clonar e configurar
 
 ```bash
 git clone <repo> patchone
@@ -23,61 +23,61 @@ cd patchone
 cp deploy/cloud/.env.example deploy/cloud/.env
 ```
 
-Edit `deploy/cloud/.env` and fill in:
+Edite `deploy/cloud/.env` e preencha:
 
-| Setting | Description |
+| Configuração | Descrição |
 |---|---|
-| `POSTGRES_PASSWORD` | Strong random password for the database |
-| `SECRET_KEY` | Long random string for session security |
-| `ADMIN_USERNAME` / `ADMIN_PASSWORD` | Initial admin credentials |
-| `SERVER_MODE` | Set to `cloud` |
-| `DOMAIN` | Your domain name |
-| `TLS_CERT_PATH` / `TLS_KEY_PATH` | Paths to your TLS certificate files |
+| `POSTGRES_PASSWORD` | Senha aleatória forte para o banco de dados |
+| `SECRET_KEY` | String aleatória longa para segurança de sessão |
+| `ADMIN_USERNAME` / `ADMIN_PASSWORD` | Credenciais iniciais do administrador |
+| `SERVER_MODE` | Defina como `cloud` |
+| `DOMAIN` | Seu nome de domínio |
+| `TLS_CERT_PATH` / `TLS_KEY_PATH` | Caminhos para os arquivos de certificado TLS |
 
 :::warning
-Never commit `.env` to version control. Use a secrets manager or encrypted storage for production values.
+Nunca comite `.env` no controle de versão. Use um gerenciador de segredos ou armazenamento criptografado para valores de produção.
 :::
 
-## Step 2 — TLS certificates
+## Etapa 2 — Certificados TLS
 
-Using Certbot:
+Usando Certbot:
 
 ```bash
 certbot certonly --standalone -d your-domain.example.com
 ```
 
-## Step 3 — Start
+## Etapa 3 — Iniciar
 
 ```bash
 cd deploy/cloud
 docker compose up -d
 ```
 
-The server automatically initialises the database and catalog on first start.
+O servidor inicializa automaticamente o banco de dados e o catálogo na primeira execução.
 
-## Step 4 — Verify
+## Etapa 4 — Verificar
 
 ```bash
 curl https://your-domain.example.com/health
 ```
 
-Expected:
+Resposta esperada:
 
 ```json
 {"status": "ok", "db": "ok"}
 ```
 
-The dashboard is available at `https://your-domain.example.com`.
+O dashboard está disponível em `https://your-domain.example.com`.
 
-## Adding a new client organisation
+## Adicionando uma nova organização cliente
 
-Contact the PatchOne administrator or use the included provisioning script to create a new admin account for each client organisation. Each organisation's data is fully isolated.
+Entre em contato com o administrador do PatchOne ou use o script de provisionamento incluído para criar uma nova conta de administrador para cada organização cliente. Os dados de cada organização são totalmente isolados.
 
-## Data persistence
+## Persistência de dados
 
-Database data and backup archives are stored in Docker volumes. Back up these volumes before upgrading.
+Os dados do banco de dados e os arquivos de backup são armazenados em volumes Docker. Faça backup desses volumes antes de atualizar.
 
-## Upgrading
+## Atualização
 
 ```bash
 git pull
@@ -85,7 +85,7 @@ docker compose pull
 docker compose up -d --build
 ```
 
-Database migrations run automatically on startup.
+As migrações do banco de dados são executadas automaticamente na inicialização.
 
 ## Logs
 

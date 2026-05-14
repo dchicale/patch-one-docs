@@ -1,59 +1,59 @@
 ---
 id: overview
-title: Dashboard Overview
+title: Visão Geral do Dashboard
 sidebar_position: 1
 ---
 
-# Dashboard Overview
+# Visão Geral do Dashboard
 
-The PatchOne dashboard is a React SPA served at the root URL of the server. It provides full fleet management without requiring any additional tools.
+O dashboard do PatchOne é uma SPA React servida na URL raiz do servidor. Ele oferece gerenciamento completo da frota sem a necessidade de ferramentas adicionais.
 
-## Navigation
+## Navegação
 
-The left sidebar contains the main sections:
+A barra lateral esquerda contém as seções principais:
 
-| Section | Purpose |
+| Seção | Finalidade |
 |---|---|
-| **Machines** | Fleet view — all registered machines and their status |
-| **Deploy** | Push software updates to one or more machines |
-| **Jobs** | Monitor the status and results of deploy jobs |
-| **Catalog** | Browse and manage the software catalog |
-| **Audit** | Immutable log of all admin actions |
-| **Backup** | Database backup management |
+| **Máquinas** | Visualização da frota — todas as máquinas registradas e seus status |
+| **Implantar** | Enviar atualizações de software para uma ou mais máquinas |
+| **Jobs** | Monitorar o status e os resultados dos jobs de implantação |
+| **Catálogo** | Navegar e gerenciar o catálogo de software |
+| **Auditoria** | Log imutável de todas as ações do administrador |
+| **Backup** | Gerenciamento de backup do banco de dados |
 
-## Top bar
+## Barra superior
 
-The top navigation bar contains:
+A barra de navegação superior contém:
 
-- **PatchOne logo** — links to the Machines page
-- **Notification bell** — shows unread notification count; click to expand
-- **Admin username** — click to log out
+- **Logo do PatchOne** — link para a página de Máquinas
+- **Sino de notificações** — exibe a contagem de notificações não lidas; clique para expandir
+- **Nome do administrador** — clique para sair
 
-## Daily briefing
+## Resumo diário
 
-At 8:00 AM each day, an automated **Daily Summary** notification appears in the notification panel. It includes:
+Às 8h00 de cada dia, uma notificação automática de **Resumo Diário** aparece no painel de notificações. Ela inclui:
 
-- Total machines online / offline
-- Number of machines with pending updates
-- Number of jobs completed / failed in the last 24 hours
+- Total de máquinas online / offline
+- Número de máquinas com atualizações pendentes
+- Número de jobs concluídos / com falha nas últimas 24 horas
 
-## Status badges
+## Badges de status
 
-Machines display a status badge:
+As máquinas exibem um badge de status:
 
-| Badge | Meaning |
+| Badge | Significado |
 |---|---|
-| **Online** | Last heartbeat within the configured timeout (default 30 min) |
-| **Offline** | No heartbeat for longer than the timeout |
+| **Online** | Último heartbeat dentro do tempo limite configurado (padrão: 30 min) |
+| **Offline** | Nenhum heartbeat por mais tempo do que o limite |
 
-## Authentication
+## Autenticação
 
-The dashboard uses cookie-based JWT authentication. Sessions expire after 8 hours (configurable via `SESSION_TIMEOUT_HOURS` in `.env`). After expiry, the browser redirects to the Login page.
+O dashboard usa autenticação JWT baseada em cookie. As sessões expiram após 8 horas (configurável via `SESSION_TIMEOUT_HOURS` no `.env`). Após a expiração, o navegador redireciona para a página de Login.
 
-## Keyboard shortcuts
+## Atalhos de teclado
 
-The dashboard is optimised for mouse navigation. No custom keyboard shortcuts are defined in v1.0.
+O dashboard é otimizado para navegação com mouse. Nenhum atalho de teclado personalizado está definido na v1.0.
 
-## Browser compatibility
+## Compatibilidade com navegadores
 
-Any modern browser (Chrome 90+, Firefox 88+, Safari 14+, Edge 90+) is supported. JavaScript must be enabled.
+Qualquer navegador moderno (Chrome 90+, Firefox 88+, Safari 14+, Edge 90+) é suportado. JavaScript deve estar habilitado.

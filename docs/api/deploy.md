@@ -1,24 +1,24 @@
 ---
 id: deploy
-title: Deploy & Jobs API
+title: API de Deploy e Jobs
 sidebar_position: 4
 ---
 
-# Deploy & Jobs API
+# API de Deploy e Jobs
 
-Queue software deployments and monitor job status.
+Enfileire implantações de software e monitore o status dos jobs.
 
-## Deploy endpoints
+## Endpoints de deploy
 
-### Queue a deploy job
+### Enfileirar um job de deploy
 
 ```
 POST /api/deploy
 ```
 
-**Auth:** Required
+**Auth:** Obrigatória
 
-**Request body:**
+**Corpo da requisição:**
 
 ```json
 {
@@ -30,7 +30,7 @@ POST /api/deploy
 }
 ```
 
-**Response (201):**
+**Resposta (201):**
 
 ```json
 {
@@ -47,38 +47,38 @@ POST /api/deploy
 }
 ```
 
-**Error responses:**
+**Respostas de erro:**
 
-| Code | Cause |
+| Código | Causa |
 |---|---|
-| 404 | Machine ID or catalog item ID not found |
-| 409 | Duplicate — a queued or in-progress job already exists for this machine + software pair |
+| 404 | ID de máquina ou ID de item do catálogo não encontrado |
+| 409 | Duplicado — já existe um job enfileirado ou em andamento para este par máquina + software |
 
-**Notes:**
-- All jobs in a single request share the same `batch_id`
-- The `409` check prevents double-deploys; the duplicate job is skipped, others proceed
+**Observações:**
+- Todos os jobs em uma única requisição compartilham o mesmo `batch_id`
+- A verificação `409` evita deploys duplicados; o job duplicado é ignorado, os demais prosseguem
 
 ---
 
-## Jobs endpoints
+## Endpoints de jobs
 
-### List jobs
+### Listar jobs
 
 ```
 GET /api/jobs
 ```
 
-**Auth:** Required
+**Auth:** Obrigatória
 
-**Query parameters:**
+**Parâmetros de consulta:**
 
-| Param | Type | Description |
+| Parâmetro | Tipo | Descrição |
 |---|---|---|
-| `status` | `queued` \| `in_progress` \| `completed` \| `failed` | Filter by job state |
-| `machine_id` | UUID | Filter to a specific machine |
-| `batch_id` | UUID | Filter to a specific batch |
+| `status` | `queued` \| `in_progress` \| `completed` \| `failed` | Filtrar por estado do job |
+| `machine_id` | UUID | Filtrar para uma máquina específica |
+| `batch_id` | UUID | Filtrar para um batch específico |
 
-**Response (200):**
+**Resposta (200):**
 
 ```json
 [
@@ -99,36 +99,36 @@ GET /api/jobs
 
 ---
 
-### Get job detail
+### Obter detalhes de um job
 
 ```
 GET /api/jobs/{job_id}
 ```
 
-**Auth:** Required
+**Auth:** Obrigatória
 
-**Response (200):** Same shape as a single item from the list above.
+**Resposta (200):** Mesmo formato de um item individual da lista acima.
 
 ---
 
-### Cancel a queued job
+### Cancelar um job enfileirado
 
 ```
 DELETE /api/jobs/{job_id}
 ```
 
-**Auth:** Required
+**Auth:** Obrigatória
 
-**Response (204):** No content. Job is deleted from the queue.
+**Resposta (204):** Sem conteúdo. O job é removido da fila.
 
-**Error responses:**
+**Respostas de erro:**
 
-| Code | Cause |
+| Código | Causa |
 |---|---|
-| 404 | Job not found |
-| 409 | Job is `in_progress` or already completed — cannot cancel |
+| 404 | Job não encontrado |
+| 409 | O job está `in_progress` ou já foi concluído — não é possível cancelar |
 
-## Job lifecycle
+## Ciclo de vida do job
 
 ```
 queued
@@ -137,4 +137,4 @@ queued
          └─► failed
 ```
 
-The agent picks up queued jobs automatically and reports results on its next check-in cycle.
+O agente busca os jobs enfileirados automaticamente e reporta os resultados no próximo ciclo de check-in.

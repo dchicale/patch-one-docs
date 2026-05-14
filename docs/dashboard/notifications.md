@@ -1,53 +1,53 @@
 ---
 id: notifications
-title: Notifications
+title: Notificações
 sidebar_position: 8
 ---
 
-# Notifications
+# Notificações
 
-The notification bell in the top-right corner of the dashboard shows real-time alerts about fleet events.
+O sino de notificações no canto superior direito do dashboard exibe alertas em tempo real sobre eventos da frota.
 
-## Notification types
+## Tipos de notificação
 
-| Type | Trigger | Severity |
+| Tipo | Gatilho | Gravidade |
 |---|---|---|
-| `machine_registered` | New machine checks in for the first time | Info |
-| `machine_offline` | Machine misses heartbeats for > `HEARTBEAT_TIMEOUT_MINUTES` | Warning |
-| `job_completed` | A deploy job finishes successfully | Info |
-| `job_failed` | A deploy job fails | Error |
-| `updates_available` | Machine reports pending winget updates | Info |
-| `daily_summary` | 8 AM automated fleet health briefing | Info |
+| `machine_registered` | Nova máquina faz check-in pela primeira vez | Informação |
+| `machine_offline` | Máquina deixa de enviar heartbeats por mais de `HEARTBEAT_TIMEOUT_MINUTES` | Aviso |
+| `job_completed` | Um job de implantação é concluído com sucesso | Informação |
+| `job_failed` | Um job de implantação falha | Erro |
+| `updates_available` | Máquina reporta atualizações winget pendentes | Informação |
+| `daily_summary` | Resumo automatizado da saúde da frota às 8h00 | Informação |
 
-## Notification bell
+## Sino de notificações
 
-The bell icon shows a badge with the count of unread notifications. Clicking the bell expands a dropdown panel showing the most recent notifications.
+O ícone do sino exibe um badge com a contagem de notificações não lidas. Clicar no sino expande um painel dropdown com as notificações mais recentes.
 
-Each notification in the panel shows:
+Cada notificação no painel exibe:
 
-- **Icon** — colour-coded by type (green info, yellow warning, red error)
-- **Message** — summary text (e.g., *"Machine DESKTOP-ABC01 came online"*)
-- **Timestamp** — relative time (e.g., *"3 minutes ago"*)
-- **Dismiss button** — mark as read and hide
+- **Ícone** — colorido por tipo (verde para informação, amarelo para aviso, vermelho para erro)
+- **Mensagem** — texto resumido (ex.: *"Máquina DESKTOP-ABC01 ficou online"*)
+- **Timestamp** — tempo relativo (ex.: *"3 minutos atrás"*)
+- **Botão de dispensar** — marca como lida e oculta
 
-## Mark all as read
+## Marcar todas como lidas
 
-Click **Mark all as read** in the notification panel header to clear the unread count.
+Clique em **Marcar todas como lidas** no cabeçalho do painel de notificações para zerar a contagem de não lidas.
 
-## Daily summary
+## Resumo diário
 
-The daily summary notification (generated at 8:00 AM) includes:
+A notificação de resumo diário (gerada às 8h00) inclui:
 
-- **Machines online** — count currently checking in
-- **Machines offline** — count that have missed their heartbeat window
-- **Pending updates** — total machines with at least one available winget update
-- **Jobs completed** — deploy jobs that succeeded in the last 24 hours
-- **Jobs failed** — deploy jobs that failed in the last 24 hours
+- **Máquinas online** — contagem das que estão fazendo check-in atualmente
+- **Máquinas offline** — contagem das que perderam sua janela de heartbeat
+- **Atualizações pendentes** — total de máquinas com pelo menos uma atualização winget disponível
+- **Jobs concluídos** — jobs de implantação que tiveram sucesso nas últimas 24 horas
+- **Jobs com falha** — jobs de implantação que falharam nas últimas 24 horas
 
-## Notification API
+## API de notificações
 
-Notifications can be read and marked as read via the [Notifications API](/docs/api/notifications). This is useful for integrating PatchOne alerts into external monitoring systems (e.g., Slack webhooks, ITSM tools).
+As notificações podem ser lidas e marcadas como lidas via a [API de Notificações](/docs/api/notifications). Isso é útil para integrar alertas do PatchOne em sistemas de monitoramento externos (ex.: webhooks do Slack, ferramentas ITSM).
 
-## Configuration
+## Configuração
 
-The offline-alert threshold is set by `HEARTBEAT_TIMEOUT_MINUTES` in `server/.env` (default: 30 minutes). The daily summary time is fixed at 8:00 AM server local time in v1.0.
+O limiar de alerta de offline é definido por `HEARTBEAT_TIMEOUT_MINUTES` em `server/.env` (padrão: 30 minutos). O horário do resumo diário está fixo às 8h00 no horário local do servidor na v1.0.

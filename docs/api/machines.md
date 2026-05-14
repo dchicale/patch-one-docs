@@ -1,31 +1,31 @@
 ---
 id: machines
-title: Machines API
+title: API de Máquinas
 sidebar_position: 3
 ---
 
-# Machines API
+# API de Máquinas
 
-Manage the fleet of registered Windows machines.
+Gerencie a frota de máquinas Windows registradas.
 
 ## Endpoints
 
-### List machines
+### Listar máquinas
 
 ```
 GET /api/machines
 ```
 
-**Auth:** Required
+**Auth:** Obrigatória
 
-**Query parameters:**
+**Parâmetros de consulta:**
 
-| Param | Type | Description |
+| Parâmetro | Tipo | Descrição |
 |---|---|---|
-| `status` | `online` \| `offline` | Filter by machine status |
-| `search` | string | Filter by hostname or tag (partial match) |
+| `status` | `online` \| `offline` | Filtrar por status da máquina |
+| `search` | string | Filtrar por hostname ou tag (correspondência parcial) |
 
-**Response (200):**
+**Resposta (200):**
 
 ```json
 [
@@ -45,17 +45,17 @@ GET /api/machines
 
 ---
 
-### Get machine detail
+### Obter detalhes de uma máquina
 
 ```
 GET /api/machines/{machine_id}
 ```
 
-**Auth:** Required
+**Auth:** Obrigatória
 
-**Path parameter:** `machine_id` — unique machine identifier (UUID)
+**Parâmetro de caminho:** `machine_id` — identificador único da máquina (UUID)
 
-**Response (200):**
+**Resposta (200):**
 
 ```json
 {
@@ -81,15 +81,15 @@ GET /api/machines/{machine_id}
 
 ---
 
-### Update machine tags / notes
+### Atualizar tags / notas da máquina
 
 ```
 PATCH /api/machines/{machine_id}
 ```
 
-**Auth:** Required
+**Auth:** Obrigatória
 
-**Request body** (all fields optional):
+**Corpo da requisição** (todos os campos são opcionais):
 
 ```json
 {
@@ -98,20 +98,20 @@ PATCH /api/machines/{machine_id}
 }
 ```
 
-**Response (200):** Updated machine object.
+**Resposta (200):** Objeto da máquina atualizado.
 
 ---
 
-### Delete (soft-delete) machine
+### Excluir (exclusão lógica) máquina
 
 ```
 DELETE /api/machines/{machine_id}
 ```
 
-**Auth:** Required
+**Auth:** Obrigatória
 
-**Response (204):** No content.
+**Resposta (204):** Sem conteúdo.
 
-The machine record is marked `status = deleted` and hidden from the default list. If the same physical machine checks in again, it is automatically restored.
+O registro da máquina é marcado como `status = deleted` e ocultado da lista padrão. Se a mesma máquina física fizer check-in novamente, ela será restaurada automaticamente.
 
-**Audit:** This action is logged as `machine_deleted`.
+**Auditoria:** Esta ação é registrada como `machine_deleted`.
