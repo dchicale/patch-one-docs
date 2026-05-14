@@ -1,5 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
-  <rect x="2" y="2" width="44" height="44" rx="8" fill="#1e6fcc"/>
-  <text x="24" y="30" font-family="system-ui, sans-serif" font-size="20" font-weight="700"
-        fill="white" text-anchor="middle">P1</text>
+  <!-- vault dark background -->
+  <rect width="48" height="48" rx="10" fill="#0B0D11"/>
+  <!-- subtle steel accent border -->
+  <rect width="48" height="48" rx="10" fill="none" stroke="#3F4B62" stroke-width="1.5"/>
+  <!-- "P" regular weight, foreground tone -->
+  <text x="7" y="33"
+    font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif"
+    font-size="26" font-weight="400" fill="#ECE9E2" letter-spacing="-1">P</text>
+  <!-- "1" bold, steel accent -->
+  <text x="27" y="33"
+    font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif"
+    font-size="26" font-weight="700" fill="#9FB3D2" letter-spacing="-1">1</text>
 </svg>

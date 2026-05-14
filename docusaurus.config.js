@@ -55,10 +55,12 @@ const config = {
     ({
       image: 'img/patchone-social.png',
       navbar: {
-        title: 'PatchOne',
+        title: '',
         logo: {
-          alt: 'PatchOne Logo',
+          alt: 'PatchOne',
           src: 'img/logo.svg',
+          srcDark: 'img/logo-dark.svg',
+          style: {display: 'none', width: 0},
         },
         items: [
           {
@@ -107,7 +109,7 @@ const config = {
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} PatchOne. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} <a href="https://www.securisoft.com.br" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline;text-underline-offset:3px">Securisoft</a>. PatchOne is a Securisoft product.`,
       },
       prism: {
         theme: prismThemes.github,
@@ -115,7 +117,7 @@ const config = {
         additionalLanguages: ['bash', 'powershell', 'ini', 'python', 'docker', 'json'],
       },
       colorMode: {
-        defaultMode: 'light',
+        defaultMode: 'dark',
         disableSwitch: false,
         respectPrefersColorScheme: true,
       },
