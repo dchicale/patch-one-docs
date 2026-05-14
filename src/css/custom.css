@@ -1,35 +1,54 @@
 /**
- * PatchOne documentation theme overrides.
+ * Fly.io-inspired theme — Fricolage Grotesque + violet/navy palette.
  */
 
+@import url('https://fonts.googleapis.com/css2?family=Fricolage+Grotesque:opsz,wght@14..30,400;14..30,500;14..30,600;14..30,700;14..30,800&display=swap');
+
 :root {
-  --ifm-color-primary: #2563EB;
-  --ifm-color-primary-dark: #1D4ED8;
-  --ifm-color-primary-darker: #1a47c4;
-  --ifm-color-primary-darkest: #1439a0;
-  --ifm-color-primary-light: #60A5FA;
-  --ifm-color-primary-lighter: #7ab8fb;
-  --ifm-color-primary-lightest: #93C5FD;
+  /* Violet primary (Tailwind violet-600) */
+  --ifm-color-primary: #7c3aed;
+  --ifm-color-primary-dark: #6d28d9;
+  --ifm-color-primary-darker: #5b21b6;
+  --ifm-color-primary-darkest: #4c1d95;
+  --ifm-color-primary-light: #8b5cf6;
+  --ifm-color-primary-lighter: #a78bfa;
+  --ifm-color-primary-lightest: #c4b5fd;
+
+  /* Typography — Fricolage Grotesque like fly.io */
+  --ifm-font-family-base: 'Fricolage Grotesque', ui-sans-serif, system-ui, sans-serif,
+    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  --ifm-heading-font-family: 'Fricolage Grotesque', ui-sans-serif, system-ui, sans-serif;
+  --ifm-font-size-base: 16px;
+  --ifm-line-height-base: 1.6;
+
   --ifm-code-font-size: 95%;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  --docusaurus-highlighted-code-line-bg: rgba(124, 58, 237, 0.08);
 }
 
 [data-theme='dark'] {
-  --ifm-color-primary: #60A5FA;
-  --ifm-color-primary-dark: #2563EB;
-  --ifm-color-primary-darker: #1D4ED8;
-  --ifm-color-primary-darkest: #1a47c4;
-  --ifm-color-primary-light: #93C5FD;
-  --ifm-color-primary-lighter: #a8d2fe;
-  --ifm-color-primary-lightest: #bddffe;
-  --ifm-background-color: #0F172A;
-  --ifm-background-surface-color: #1E293B;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+  /* Violet shifts lighter on dark */
+  --ifm-color-primary: #a78bfa;
+  --ifm-color-primary-dark: #8b5cf6;
+  --ifm-color-primary-darker: #7c3aed;
+  --ifm-color-primary-darkest: #6d28d9;
+  --ifm-color-primary-light: #c4b5fd;
+  --ifm-color-primary-lighter: #ddd6fe;
+  --ifm-color-primary-lightest: #ede9fe;
+
+  /* Navy dark backgrounds — fly.io navy-950 / navy-900 */
+  --ifm-background-color: #0f0b2d;
+  --ifm-background-surface-color: #1a1640;
+  --ifm-navbar-background-color: #0a0720;
+  --ifm-footer-background-color: #0a0720;
+  --ifm-toc-border-color: #2a2560;
+  --ifm-color-emphasis-300: #2a2560;
+
+  --docusaurus-highlighted-code-line-bg: rgba(167, 139, 250, 0.12);
 }
 
-/* Hero section */
+/* Hero — fly.io purple gradient (#5046e4 → #7c3aed → #ba7bf0) */
 .hero--primary {
-  background: linear-gradient(135deg, #1D4ED8 0%, #2563EB 100%);
+  background: linear-gradient(135deg, #5046e4 0%, #7c3aed 50%, #ba7bf0 100%);
 }
 
 /* Feature cards */
@@ -41,7 +60,7 @@
 }
 
 .feature-card:hover {
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 4px 16px rgba(124, 58, 237, 0.15);
 }
 
 /* API endpoint tables */
@@ -55,23 +74,23 @@
 
 /* Status badge colours */
 .badge--online {
-  background-color: #27ae60;
+  background-color: #10b981;
   color: white;
 }
 
 .badge--offline {
-  background-color: #c0392b;
+  background-color: #ef4444;
   color: white;
 }
 
 .badge--pending {
-  background-color: #f39c12;
+  background-color: #f59e0b;
   color: white;
 }
 
 /* Admonition tweaks */
 .alert--warning {
-  border-left: 4px solid #f39c12;
+  border-left: 4px solid #f59e0b;
 }
 
 /* Code block lang label */

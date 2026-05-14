@@ -3,6 +3,21 @@ import {themes as prismThemes} from 'prism-react-renderer';
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
+  headTags: [
+    {
+      tagName: 'link',
+      attributes: {rel: 'preconnect', href: 'https://fonts.googleapis.com'},
+    },
+    {
+      tagName: 'link',
+      attributes: {
+        rel: 'preconnect',
+        href: 'https://fonts.gstatic.com',
+        crossorigin: 'anonymous',
+      },
+    },
+  ],
+
   title: 'PatchOne',
   tagline: 'Windows software update management for Brazilian SMEs',
   favicon: 'img/favicon.svg',
@@ -96,7 +111,7 @@ const config = {
       },
       prism: {
         theme: prismThemes.github,
-        darkTheme: prismThemes.dracula,
+        darkTheme: prismThemes.vsDark,
         additionalLanguages: ['bash', 'powershell', 'ini', 'python', 'docker', 'json'],
       },
       colorMode: {
