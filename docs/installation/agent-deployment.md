@@ -1,26 +1,26 @@
 ---
 id: agent-deployment
-title: Agent Deployment
+title: Deploy do Agente
 sidebar_position: 3
 ---
 
-# Agent Deployment
+# Deploy do Agente
 
-`PatchPilotAgent.exe` is a self-contained Windows binary (no Python runtime required). Deploy it as a Windows Service on each machine you want to manage.
+`PatchPilotAgent.exe` é um binário Windows autossuficiente (sem necessidade de Python). Implante-o como um Windows Service em cada máquina que deseja gerenciar.
 
-## Before you start
+## Antes de começar
 
-Ensure AV exclusions are registered if using Bitdefender GravityZone or Windows Defender:
+Registre as exclusões de AV se usar Bitdefender GravityZone ou Windows Defender:
 
-```powershell title="Register AV exclusions (run as Administrator)"
+```powershell title="Registrar exclusões de AV (execute como Administrador)"
 deploy\register_av_exclusion.ps1
 ```
 
-See [GravityZone coexistence](/docs/security/gravityzone) for details.
+Consulte [Coexistência com GravityZone](/docs/security/gravityzone) para detalhes.
 
 ## config.ini
 
-All deployment methods share the same `config.ini`. Replace the highlighted values:
+Todos os métodos de deploy compartilham o mesmo `config.ini`. Substitua os valores destacados:
 
 ```ini title="config.ini" {2,3}
 [server]
@@ -33,26 +33,26 @@ HEARTBEAT_INTERVAL=300
 LOG_LEVEL=INFO
 ```
 
-| Setting | Description | Default |
+| Configuração | Descrição | Padrão |
 |---|---|---|
-| `SERVER_URL` | Base URL of the PatchOne server | required |
-| `TENANT_ID` | Tenant identifier (`default` for on-prem) | `default` |
-| `API_KEY` | Shared secret for agent authentication | required |
-| `HEARTBEAT_INTERVAL` | Seconds between check-ins | `300` |
+| `SERVER_URL` | URL base do servidor PatchOne | obrigatório |
+| `TENANT_ID` | Identificador do tenant (`default` para on-prem) | `default` |
+| `API_KEY` | Segredo compartilhado para autenticação do agente | obrigatório |
+| `HEARTBEAT_INTERVAL` | Segundos entre check-ins | `300` |
 | `LOG_LEVEL` | `DEBUG`, `INFO`, `WARNING`, `ERROR` | `INFO` |
 
-## Deployment flow
+## Fluxo de deploy
 
 ```mermaid
 flowchart LR
-    share["📂 Network Share\nPatchPilotAgent.exe\nconfig.ini"]
+    share["📂 Compartilhamento de Rede\nPatchPilotAgent.exe\nconfig.ini"]
     gpo["🗂️ GPO / WinRM\n/ PsExec"]
-    machine["💻 Windows Machine"]
-    server["⚙️ PatchOne Server"]
+    machine["💻 Máquina Windows"]
+    server["⚙️ Servidor PatchOne"]
 
     share --> gpo --> machine
-    machine -->|"first check-in"| server
-    server -->|"appears in Fleet"| server
+    machine -->|"primeiro check-in"| server
+    server -->|"aparece na frota"| server
 
     style server fill:#161A22,stroke:#3F4B62,color:#ECE9E2
     style machine fill:#1C2230,stroke:#2A323F,color:#98A0AC
@@ -60,13 +60,13 @@ flowchart LR
     style share fill:#1C2230,stroke:#2A323F,color:#98A0AC
 ```
 
-## Method 1 — GPO Startup Script (recommended)
+## Método 1 — Script de Inicialização via GPO (recomendado)
 
-Best for domain environments.
+Ideal para ambientes com domínio.
 
-### Setup
+### Configuração
 
-1. Copy files to a network share:
+1. Copie os arquivos para um compartilhamento de rede:
 
    ```
    \\server\sysvol\PatchOne\
@@ -74,34 +74,34 @@ Best for domain environments.
      config.ini
    ```
 
-2. In Group Policy Management, create a new GPO.
+2. No Gerenciamento de Política de Grupo, crie um novo GPO.
 
-3. Navigate to:
-   `Computer Configuration → Windows Settings → Scripts → Startup`
+3. Navegue até:
+   `Configuração do Computador → Configurações do Windows → Scripts → Inicialização`
 
-4. Add a new startup script:
+4. Adicione um novo script de inicialização:
    - **Script:** `\\server\sysvol\PatchOne\PatchPilotAgent.exe`
-   - **Parameters:** `install`
+   - **Parâmetros:** `install`
 
-5. Link the GPO to the target Organisational Unit (OU).
+5. Vincule o GPO à Unidade Organizacional (OU) de destino.
 
-6. Force a Group Policy refresh or wait for the next machine restart.
+6. Force uma atualização de Política de Grupo ou aguarde a próxima reinicialização.
 
-Machines install the agent on next restart / GP refresh and appear in the dashboard shortly after.
+As máquinas instalam o agente na próxima reinicialização e aparecem no dashboard em seguida.
 
-### Verify
+### Verificar
 
-```bat title="Check service status on a target machine"
+```bat title="Verificar status do serviço em uma máquina de destino"
 sc query PatchOneAgent
 ```
 
-Expected output includes `STATE: 4 RUNNING`.
+Saída esperada inclui `STATE: 4 RUNNING`.
 
-## Method 2 — WinRM / PowerShell remoting
+## Método 2 — WinRM / PowerShell remoto
 
-Use when you have WinRM access but no domain GPO.
+Use quando tiver acesso WinRM, mas sem GPO de domínio.
 
-```powershell title="Bulk deploy via WinRM" showLineNumbers
+```powershell title="Deploy em massa via WinRM" showLineNumbers
 $hosts = Get-Content hosts.txt
 foreach ($h in $hosts) {
     $session = New-PSSession -ComputerName $h
@@ -115,35 +115,35 @@ foreach ($h in $hosts) {
 }
 ```
 
-`hosts.txt` — one hostname or IP per line.
+`hosts.txt` — um hostname ou IP por linha.
 
-## Method 3 — Mass deploy script (PsExec)
+## Método 3 — Script de deploy em massa (PsExec)
 
-The `deploy_agents.py` script wraps PsExec for bulk deployment.
+O script `deploy_agents.py` usa PsExec para deploy em larga escala.
 
-```bat title="Deploy by host list"
+```bat title="Deploy por lista de hosts"
 python deploy\deploy_agents.py ^
   --hosts hosts.txt ^
   --server-url https://your-patchone-server ^
   --api-key <key>
 ```
 
-```bat title="Deploy by CIDR range"
+```bat title="Deploy por faixa CIDR"
 python deploy\deploy_agents.py ^
   --cidr 192.168.1.0/24 ^
   --server-url https://your-patchone-server ^
   --api-key <key>
 ```
 
-:::warning AV false positives with PsExec
-The agent binary may trigger AV false positives when deployed via PsExec. Register AV exclusions first, or prefer the GPO method.
+:::warning Falsos positivos de AV com PsExec
+O binário do agente pode acionar falsos positivos de AV quando implantado via PsExec. Registre as exclusões de AV primeiro ou prefira o método GPO.
 :::
 
-## Method 4 — Manual install
+## Método 4 — Instalação manual
 
-For a single machine or testing:
+Para uma única máquina ou testes:
 
-```bat title="Manual install (run as Administrator)"
+```bat title="Instalação manual (execute como Administrador)"
 xcopy /Y PatchPilotAgent.exe "C:\Program Files\PatchOne\"
 xcopy /Y config.ini          "C:\Program Files\PatchOne\"
 
@@ -151,20 +151,20 @@ xcopy /Y config.ini          "C:\Program Files\PatchOne\"
 sc start PatchOneAgent
 ```
 
-## Agent service management
+## Gerenciamento do serviço do agente
 
-| Action | Command |
+| Ação | Comando |
 |---|---|
-| Start | `sc start PatchOneAgent` |
-| Stop | `sc stop PatchOneAgent` |
-| Restart | `sc stop PatchOneAgent && sc start PatchOneAgent` |
-| Uninstall | `PatchPilotAgent.exe remove` |
+| Iniciar | `sc start PatchOneAgent` |
+| Parar | `sc stop PatchOneAgent` |
+| Reiniciar | `sc stop PatchOneAgent && sc start PatchOneAgent` |
+| Desinstalar | `PatchPilotAgent.exe remove` |
 | Status | `sc query PatchOneAgent` |
 
-## Agent log file
+## Arquivo de log do agente
 
-Logs are written to `C:\Program Files\PatchOne\agent.log`. Log level is controlled by `LOG_LEVEL` in `config.ini`.
+Os logs são gravados em `C:\Program Files\PatchOne\agent.log`. O nível de log é controlado por `LOG_LEVEL` no `config.ini`.
 
-## Agent self-update
+## Atualização automática do agente
 
-When the server publishes a new agent version, the agent updates itself automatically. See [Agent Self-Update](/docs/agent/self-update) for details.
+Quando o servidor publica uma nova versão, o agente se atualiza automaticamente. Consulte [Atualização Automática do Agente](/docs/agent/self-update) para detalhes.

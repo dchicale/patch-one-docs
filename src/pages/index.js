@@ -67,7 +67,7 @@ export default function Home() {
             </div>
 
             <h1 className="vo-title">
-              Atualize cada endpoint Windows.<br /><em>Em um só lugar.</em>
+              Frota Windows atualizada e protegida.<br /><em>Um só console.</em>
             </h1>
 
             <p className="vo-lede">
