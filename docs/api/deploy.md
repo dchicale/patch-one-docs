@@ -132,9 +132,9 @@ DELETE /api/jobs/{job_id}
 
 ```
 queued
-  └─► in_progress  (agent picks up on next heartbeat)
-         ├─► completed  (winget exit code 0)
-         └─► failed     (winget non-zero exit code)
+  └─► in_progress  (agent picks up on next check-in)
+         ├─► completed
+         └─► failed
 ```
 
-The agent reports job completion via `POST /api/agent/jobs/{id}/done` (agent-only endpoint, uses `API_KEY` header not session cookie).
+The agent picks up queued jobs automatically and reports results on its next check-in cycle.

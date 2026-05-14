@@ -6,7 +6,7 @@ sidebar_position: 1
 
 # PatchOne
 
-**PatchOne** is a Windows software update management platform built for Brazilian SMEs with 10–500 machines per organisation. It gives IT administrators a single console to detect, deploy, and audit software updates across their entire fleet — with zero cloud dependency, no per-machine cost, and no manual enrollment.
+**PatchOne** is a Windows software update management platform built for Brazilian SMEs with 10–500 machines per organisation. It gives IT administrators a single console to detect, deploy, and audit software updates across their entire fleet — with no per-machine cost and no manual enrollment.
 
 ## What problem it solves
 
@@ -16,30 +16,30 @@ Managing software updates across a Windows fleet is painful without enterprise t
 
 | Capability | Detail |
 |---|---|
-| **Auto-discovery** | Agents self-register on first heartbeat — no manual roster |
-| **Live inventory** | Installed software per machine, refreshed every 5 min |
-| **Update detection** | Pending winget updates surfaced as dashboard badges |
+| **Auto-discovery** | Agents self-register on first check-in — no manual roster |
+| **Live inventory** | Installed software per machine, refreshed automatically |
+| **Update detection** | Pending updates surfaced as dashboard badges |
 | **One-click deploy** | Push any catalog title to one machine or the entire fleet |
-| **Silent install** | `winget upgrade --silent --scope machine` — zero user interruption |
+| **Silent install** | Updates install silently — zero end-user interruption |
 | **Tamper-proof audit** | Every deploy, login, and config change logged immutably |
 | **Offline alerting** | Dashboard notification when a machine stops checking in |
-| **Daily briefing** | 8 AM fleet-health snapshot pushed to the dashboard |
-| **Agent self-update** | Agent replaces its own binary when the server advertises a new version |
-| **Multi-tenant** | Single cloud instance isolates each client org by `tenant_id` |
-| **Database backup** | Scheduled daily + manual trigger, downloadable from dashboard |
+| **Daily briefing** | Fleet-health snapshot pushed to the dashboard each morning |
+| **Agent self-update** | Agent updates itself when the server publishes a new version |
+| **Multi-tenant** | Cloud mode isolates each client organisation's data |
+| **Database backup** | Scheduled daily backups plus manual trigger from the dashboard |
 
 ## Who it is for
 
 - **IT administrators** at Brazilian SMEs managing 10–500 Windows machines
-- **MSPs** bundling PatchOne with GravityZone licences (Securisoft partnership)
-- **On-prem admins** who cannot use cloud-based patch management
+- **MSPs** bundling PatchOne with GravityZone licences
+- **On-prem admins** who need patch management without cloud dependency
 
 ## Deployment modes
 
-| Mode | Database | Setup tool |
+| Mode | Description | Setup |
 |---|---|---|
-| **On-premises** | SQLite on Windows Server | `install_server.bat` |
-| **Cloud / SaaS** | PostgreSQL with Docker Compose | `docker compose up` |
+| **On-premises** | Single Windows Server, no internet required | `install_server.bat` |
+| **Cloud / SaaS** | Docker-based, TLS, multi-tenant | `docker compose up` |
 
 ## Next steps
 

@@ -6,28 +6,28 @@ sidebar_position: 1
 
 # API Overview
 
-PatchOne exposes a REST API at the same base URL as the dashboard.
+PatchOne exposes a REST API at the same base URL as the dashboard. You can use it to automate fleet management tasks, integrate with monitoring systems, or build custom tooling.
 
 ## Base URL
 
 | Deployment | Base URL |
 |---|---|
-| On-premises | `http://<server-ip>:8000` |
-| Cloud | `https://<domain>` |
+| On-premises | `http://<server-address>` |
+| Cloud | `https://<your-domain>` |
 
 ## Authentication
 
-All admin endpoints require an `access_token` HttpOnly cookie set by `POST /api/admin/login`. Agent endpoints use a shared `API_KEY` header instead of cookies.
+All API requests require a valid admin session. Authenticate first via the login endpoint, then include the session cookie in subsequent requests.
 
 See [Authentication](/docs/api/authentication) for details.
 
 ## Response format
 
-All endpoints return JSON. Standard error shape:
+All endpoints return JSON. Errors use a consistent shape:
 
 ```json
 {
-  "detail": "Error message describing the problem"
+  "detail": "Description of the problem"
 }
 ```
 
@@ -37,47 +37,32 @@ All endpoints return JSON. Standard error shape:
 |---|---|
 | 200 | Success |
 | 201 | Created |
-| 204 | No content (delete operations) |
-| 400 | Bad request — validation error |
-| 401 | Unauthenticated — missing or expired token |
-| 403 | Forbidden — wrong tenant or insufficient permission |
+| 204 | No content |
+| 400 | Bad request |
+| 401 | Not authenticated |
+| 403 | Forbidden |
 | 404 | Not found |
-| 409 | Conflict — e.g., duplicate deploy job |
-| 422 | Unprocessable entity — request body schema error |
+| 409 | Conflict |
+| 422 | Validation error |
 | 429 | Rate limited |
-| 500 | Internal server error |
+| 500 | Server error |
 
-## Routers
+## Available API sections
 
-| Router | Prefix | Purpose |
-|---|---|---|
-| [Authentication](/docs/api/authentication) | `/api/admin` | Login, logout, profile |
-| [Machines](/docs/api/machines) | `/api/machines` | Fleet management |
-| Agent | `/api/agent` | Heartbeat, jobs, version (agent-only) |
-| [Deploy](/docs/api/deploy) | `/api/deploy`, `/api/jobs` | Queue and monitor deploy jobs |
-| [Catalog](/docs/api/catalog) | `/api/catalog` | Software catalog CRUD |
-| [Notifications](/docs/api/notifications) | `/api/notifications` | Read and dismiss notifications |
-| [Audit](/docs/api/audit) | `/api/audit` | Immutable audit log |
-| [Backup](/docs/api/backup) | `/api/backup` | Database backup management |
-
-## Health check
-
-```
-GET /health
-```
-
-No authentication required. Returns server and database liveness:
-
-```json
-{"status": "ok", "db": "ok"}
-```
-
-Use this endpoint for load balancer health checks and monitoring.
+| Section | Purpose |
+|---|---|
+| [Authentication](/docs/api/authentication) | Login, logout, session management |
+| [Machines](/docs/api/machines) | Fleet inventory and machine management |
+| [Deploy](/docs/api/deploy) | Queue and monitor update deployments |
+| [Catalog](/docs/api/catalog) | Manage the software catalog |
+| [Notifications](/docs/api/notifications) | Read and dismiss notifications |
+| [Audit](/docs/api/audit) | Query the immutable audit log |
+| [Backup](/docs/api/backup) | Trigger and download database backups |
 
 ## Rate limiting
 
-Login attempts are rate-limited at the server level. Repeated failed logins from the same IP result in a temporary lockout. The lockout duration is not configurable in v1.0.
+Login attempts are rate-limited. Repeated failures from the same source result in a temporary lockout.
 
 ## Multi-tenancy
 
-In cloud mode, every request is scoped to the `tenant_id` extracted from the admin's JWT token. You cannot access another tenant's resources with your token.
+In cloud mode, every request is automatically scoped to your organisation. You cannot access another organisation's data regardless of the request.

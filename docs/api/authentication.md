@@ -1,41 +1,33 @@
 ---
 id: authentication
-title: Authentication API
+title: Authentication
 sidebar_position: 2
 ---
 
-# Authentication API
+# Authentication
 
-## Overview
+PatchOne uses cookie-based session authentication for the admin API. After logging in, the session cookie is automatically included in subsequent requests by the browser or your HTTP client.
 
-PatchOne uses cookie-based JWT authentication for the admin dashboard. Sessions are stored in an HttpOnly cookie (`access_token`) to prevent XSS access.
+## Login
 
-## Endpoints
-
-### Login
-
-```
-POST /api/admin/login
-```
-
-**Auth:** None
+**`POST /api/admin/login`**
 
 **Request body:**
 
 ```json
 {
-  "username": "admin",
+  "username": "your-username",
   "password": "your-password"
 }
 ```
 
-**Response (200):** Sets `access_token` HttpOnly cookie. Returns admin profile:
+**Success (200):** Sets a session cookie and returns your admin profile:
 
 ```json
 {
   "id": 1,
   "username": "admin",
-  "tenant_id": "default"
+  "tenant_id": "your-org"
 }
 ```
 
@@ -43,79 +35,42 @@ POST /api/admin/login
 
 | Code | Cause |
 |---|---|
-| 401 | Invalid username or password |
-| 429 | Too many failed login attempts |
-
-**Notes:**
-- Passwords are verified with bcrypt
-- Login events are written to the audit log
-- The session cookie expires after `SESSION_TIMEOUT_HOURS` (default: 8 hours)
+| 401 | Invalid credentials |
+| 429 | Too many failed attempts — wait before retrying |
 
 ---
 
-### Logout
+## Logout
 
-```
-POST /api/admin/logout
-```
+**`POST /api/admin/logout`**
 
-**Auth:** Required (`access_token` cookie)
-
-**Response (200):** Clears the `access_token` cookie:
-
-```json
-{"message": "logged out"}
-```
-
-**Notes:** The logout event is written to the audit log.
+Clears the session cookie. The logout event is written to the audit log.
 
 ---
 
-### Current admin profile
+## Current session
 
-```
-GET /api/admin/me
-```
+**`GET /api/admin/me`**
 
-**Auth:** Required
+Returns your admin profile for the current session. Returns 401 if the session has expired.
 
-**Response (200):**
+## Session expiry
 
-```json
-{
-  "id": 1,
-  "username": "admin",
-  "tenant_id": "default"
-}
-```
+Sessions expire after a period of inactivity. After expiry, protected API calls return 401 and the browser redirects to the login page.
 
-**Error responses:**
+## Using the API from scripts
 
-| Code | Cause |
-|---|---|
-| 401 | Missing or expired session cookie |
-
-## Using the cookie in API clients
-
-When calling protected endpoints from a script or API client, include the session cookie from a prior login:
+Use an HTTP client that supports cookies. Log in once to obtain the session cookie, then include it in subsequent requests:
 
 ```python
 import requests
 
 session = requests.Session()
-
-# Login
-resp = session.post("http://server:8000/api/admin/login", json={
+session.post("https://your-server/api/admin/login", json={
     "username": "admin",
-    "password": "password"
+    "password": "your-password"
 })
-resp.raise_for_status()
 
-# The session cookie is now stored in session.cookies
-# Subsequent requests automatically include it
-machines = session.get("http://server:8000/api/machines").json()
+# Session cookie is now stored — subsequent requests include it automatically
+machines = session.get("https://your-server/api/machines").json()
 ```
-
-## Session expiry
-
-Sessions expire after `SESSION_TIMEOUT_HOURS` (default: 8) of inactivity. After expiry, the next request to a protected endpoint returns HTTP 401, and the browser redirects to the Login page.

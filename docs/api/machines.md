@@ -53,7 +53,7 @@ GET /api/machines/{machine_id}
 
 **Auth:** Required
 
-**Path parameter:** `machine_id` — SMBIOS UUID of the machine
+**Path parameter:** `machine_id` — unique machine identifier (UUID)
 
 **Response (200):**
 

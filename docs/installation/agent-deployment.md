@@ -24,7 +24,7 @@ All deployment methods share the same `config.ini`:
 
 ```ini
 [server]
-SERVER_URL=http://<server-ip>:8000
+SERVER_URL=https://your-patchone-server
 TENANT_ID=default
 API_KEY=<your-api-key>
 HEARTBEAT_INTERVAL=300
@@ -43,7 +43,7 @@ LOG_LEVEL=INFO
 
 ## Method 1 — GPO Startup Script (recommended)
 
-Best for domain environments. Avoids AV friction because the binary is not extracted to `%TEMP%`.
+Best for domain environments.
 
 ### Setup
 
@@ -68,7 +68,7 @@ Best for domain environments. Avoids AV friction because the binary is not extra
 
 6. Force a Group Policy refresh or wait for the next machine restart.
 
-Machines install the agent on next restart / GP refresh and appear in the dashboard within 5 minutes.
+Machines install the agent on next restart / GP refresh and appear in the dashboard shortly after.
 
 ### Verify
 
@@ -107,7 +107,7 @@ The `deploy_agents.py` script wraps PsExec for bulk deployment. Supports a list 
 ```bat
 python deploy\deploy_agents.py ^
   --hosts hosts.txt ^
-  --server-url http://<server-ip>:8000 ^
+  --server-url https://your-patchone-server ^
   --api-key <key>
 ```
 
@@ -116,12 +116,12 @@ Or by CIDR:
 ```bat
 python deploy\deploy_agents.py ^
   --cidr 192.168.1.0/24 ^
-  --server-url http://<server-ip>:8000 ^
+  --server-url https://your-patchone-server ^
   --api-key <key>
 ```
 
 :::warning AV false positives with PsExec
-PyInstaller `.exe` files can trigger AV false positives when deployed via PsExec because the binary is copied to and executed from a remote `%TEMP%` path. Register AV exclusions first, or prefer the GPO method.
+The agent binary may trigger AV false positives when deployed via PsExec. Register AV exclusions first, or prefer the GPO method.
 :::
 
 ## Method 4 — Manual install

@@ -118,20 +118,19 @@ export default function Home() {
                 </Link>
               </div>
               <div className="col col--6">
-                <h2>Quick architecture</h2>
-                <pre style={{background: 'var(--ifm-code-background)', padding: '1rem', borderRadius: '8px', fontSize: '0.85rem'}}>
-{`React Dashboard (Tailwind + Recharts)
-        ↓ HTTP cookie auth
-FastAPI Server  (port 8000)
-        ↓ SQLAlchemy Core
-   SQLite (on-prem)
-   PostgreSQL (cloud)
-        ↑ poll every 5 min
-PatchPilotAgent.exe  (Windows Service)
-        ↓ winget + registry`}
-                </pre>
+                <h2>How it works</h2>
+                <p>
+                  A lightweight agent runs as a Windows Service on each managed machine. It checks
+                  in with the PatchOne server on a regular schedule — picking up pending update
+                  jobs, reporting installed software, and sending results. No inbound ports needed
+                  on client machines.
+                </p>
+                <p>
+                  The IT admin manages everything from the dashboard: approve updates, review the
+                  audit log, download backups, and monitor the fleet in real time.
+                </p>
                 <Link className="button button--outline button--primary" to="/docs/architecture/overview">
-                  Architecture →
+                  How PatchOne works →
                 </Link>
               </div>
             </div>

@@ -12,9 +12,9 @@ The agent reads its configuration from `config.ini` in the same directory as `Pa
 
 ```ini
 [server]
-SERVER_URL=http://<server-ip>:8000
-TENANT_ID=default
-API_KEY=<your-api-key>
+SERVER_URL=https://your-patchone-server
+TENANT_ID=your-tenant-id
+API_KEY=<provided-by-your-admin>
 HEARTBEAT_INTERVAL=300
 
 [agent]
@@ -23,73 +23,24 @@ LOG_LEVEL=INFO
 
 ### [server] section
 
-| Key | Type | Required | Default | Description |
-|---|---|---|---|---|
-| `SERVER_URL` | URL | Yes | — | Base URL of the PatchOne server. Include scheme and port. No trailing slash. |
-| `TENANT_ID` | String | Yes | `default` | Tenant identifier. Use `default` for on-premises deployments. Cloud tenants receive a UUID. |
-| `API_KEY` | String | Yes | — | Shared secret for agent authentication. Generated during server setup. |
-| `HEARTBEAT_INTERVAL` | Integer | No | `300` | Seconds between heartbeat polls. Minimum: 60. Recommended: 300. |
+| Key | Type | Required | Description |
+|---|---|---|---|
+| `SERVER_URL` | URL | Yes | Base URL of the PatchOne server. Use HTTPS for cloud deployments. No trailing slash. |
+| `TENANT_ID` | String | Yes | Your organisation identifier. Use `default` for on-premises; cloud tenants receive a value during onboarding. |
+| `API_KEY` | String | Yes | Shared secret provided by your PatchOne administrator. |
+| `HEARTBEAT_INTERVAL` | Integer | No | Seconds between check-ins. Default: `300`. Minimum: `60`. |
 
 ### [agent] section
 
-| Key | Type | Required | Default | Description |
-|---|---|---|---|---|
-| `LOG_LEVEL` | String | No | `INFO` | Log verbosity. One of: `DEBUG`, `INFO`, `WARNING`, `ERROR`. |
-
-## Examples
-
-### On-premises (default tenant)
-
-```ini
-[server]
-SERVER_URL=http://192.168.1.100:8000
-TENANT_ID=default
-API_KEY=abc123xyz
-HEARTBEAT_INTERVAL=300
-
-[agent]
-LOG_LEVEL=INFO
-```
-
-### Cloud (named tenant)
-
-```ini
-[server]
-SERVER_URL=https://patchone.example.com
-TENANT_ID=acme-corp
-API_KEY=abc123xyz
-HEARTBEAT_INTERVAL=300
-
-[agent]
-LOG_LEVEL=WARNING
-```
-
-### Debug mode (troubleshooting)
-
-```ini
-[server]
-SERVER_URL=http://192.168.1.100:8000
-TENANT_ID=default
-API_KEY=abc123xyz
-HEARTBEAT_INTERVAL=60
-
-[agent]
-LOG_LEVEL=DEBUG
-```
+| Key | Type | Required | Description |
+|---|---|---|---|
+| `LOG_LEVEL` | String | No | Log verbosity. One of: `DEBUG`, `INFO`, `WARNING`, `ERROR`. Default: `INFO`. |
 
 ## Configuration in GPO deployments
 
-When deploying via GPO, store `config.ini` in the same network share as the binary:
+When deploying via GPO, store `config.ini` alongside the agent binary in a shared network location. The GPO copies both files to each machine before the service starts.
 
-```
-\\server\sysvol\PatchOne\
-  PatchPilotAgent.exe
-  config.ini
-```
-
-The agent reads `config.ini` from its own directory at startup. The GPO copies both files to each machine.
-
-## Changing configuration
+## Applying configuration changes
 
 After editing `config.ini`, restart the agent service for changes to take effect:
 
@@ -98,12 +49,6 @@ sc stop PatchOneAgent
 sc start PatchOneAgent
 ```
 
-## Security considerations
+## Security
 
-`config.ini` contains the `API_KEY`. Protect the file with appropriate NTFS permissions:
-
-```bat
-icacls "C:\Program Files\PatchOne\config.ini" /inheritance:d /grant:r "SYSTEM:R" "Administrators:F"
-```
-
-This grants read access to `SYSTEM` (the service account) and full control to Administrators only.
+`config.ini` contains the `API_KEY`. Restrict access with NTFS permissions so only the service account and administrators can read the file.

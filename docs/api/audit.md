@@ -75,4 +75,4 @@ The `detail` column is serialised as a JSON string within the CSV cell.
 
 ## Tamper protection
 
-The audit API provides no `POST`, `PUT`, `PATCH`, or `DELETE` operations. Audit entries are append-only at the database level. In on-premises mode, protect the SQLite file with OS-level NTFS permissions.
+The audit API provides no `POST`, `PUT`, `PATCH`, or `DELETE` operations. Audit entries are append-only at the database level. In on-premises mode, apply OS-level file permissions to the database directory to prevent direct modification.
